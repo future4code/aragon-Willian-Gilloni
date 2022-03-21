@@ -29,8 +29,11 @@ alert(`Voce recebe ${salarioDia/horasPorDia} por hora`)
 const nome = prompt("Qual é o seu nome?")
 
 const idade = prompt("Qual a sua idade?")
-
+console.log("nome da variavel = idade", "tipo=", typeof idade)
+console.log("nome da variavel = nome", "tipo=", typeof idade)
 console.log("Olá ", nome , "voce tem " ,idade , "anos.")
+
+// com o typeof conseguimos ver o tipo de variavel de uma determinada variavel
 
 //Exercicio de escrita de codigo 2
 
@@ -41,7 +44,7 @@ const cabelo = prompt("Seu cabelo é verde?")
 console.log(cabelo)
 
 const corDePele = prompt("Sua cor de pele é morena?")
-console.log(corDaPele)
+console.log(corDePele)
 
 // Exercicio de escrita de codigo 3
 
