@@ -10,12 +10,15 @@ console.log(a, b) = 10  5
 */
 
 /* exercicio 2:
+
 a=10
 b=10
 c=10
 */
 
-/* exercicio 3:let horasPorDia = prompt("Quantas horas você trabalha por dia?")
+/* exercicio 3:
+
+let horasPorDia = prompt("Quantas horas você trabalha por dia?")
 let salarioDia = prompt("Quanto você recebe por dia?")
 alert(`Voce recebe ${salarioDia/horasPorDia} por hora`)
 */
