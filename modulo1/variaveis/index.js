@@ -30,7 +30,7 @@ const nome = prompt("Qual é o seu nome?")
 
 const idade = prompt("Qual a sua idade?")
 console.log("nome da variavel = idade", "tipo=", typeof idade)
-console.log("nome da variavel = nome", "tipo=", typeof idade)
+console.log("nome da variavel = nome", "tipo=", typeof nome)
 console.log("Olá ", nome , "voce tem " ,idade , "anos.")
 
 // com o typeof conseguimos ver o tipo de variavel de uma determinada variavel
