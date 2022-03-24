@@ -122,20 +122,21 @@ divisao(primeiroNum,segundoNum)
     somarNumero(10,5)
 */
 /*
- b)const somarNumeros = (a,b)=>{
-    const comparacao = a >= b
-    console.log(comparacao)
-    }
-    
-    somarNumero(10,5)
+ b)
+imprimeNum(50)
+    const somarDoisNum = (valorUm,valorDois) =>{
+    const calcSomarDoisNum = (valorUm + valorDois)
+    return console.log(imprimeNum(calcSomarDoisNum))
+}
+
+somarDoisNum(10,5)
 
 */
 /* ---------------------------------------Desafio 2 -------------------------------------------------
 function pitagoras(c1,c2){
-const h = (c1 * c1) + (c2 * c2); 
-console.log(h)
-   return pitagoras
-}
-
-pitagoras(9,12)
+    const h = (c1 * c1) + (c2 * c2); 
+     return console.log(Math.sqrt(h))
+    }
+    
+    pitagoras(9,12)
 */
