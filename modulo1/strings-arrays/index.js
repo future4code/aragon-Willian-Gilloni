@@ -51,6 +51,7 @@ console.log(comidasFavoritas)
 const comidasPreferidas = ["pizza","salada","yakisoba","seitan","tofu"]
 console.log(comidasPreferidas)
 
+
 */
 
  /*Exercicio escrita de codigo 3
@@ -70,16 +71,17 @@ console.log(listaDeTarefas)
 
 // Desafio 1
 
-const frase = prompt("frase")
-const arrayDaFrase = ["f","r","a","s","e"]
-console.log(arrayDaFrase)
+let arraysPergunta = prompt("Insira uma frase com no mínimo cinco palavras")
+resultado = arraysPergunta.split(" ")
+
+console.log(resultado)
 
 
 /* Desafio 2
 
-const frutas = ["Banana", "Morango", "Abacaxi", "Laranja", "Ameixa"]
-const indice = Number(prompt("0,1,2,3,4"))
-console.log(frutas.indexOf("Abacaxi"))
-console.log("Abacaxi".length)
-console.log(frutas.length)
+let arrayFrutas = ["Banana", "Morango", "Abacaxi", "Laranja", "Ameixa"]
+let pesquisaFruta = arrayFrutas.indexOf("Abacaxi")
+console.log(pesquisaFruta)
+console.log(arrayFrutas.length)
+
 */
