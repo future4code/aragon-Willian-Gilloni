@@ -127,6 +127,7 @@ function trocaPrimeiroEUltimo(array) {
   let array1 = [1,2,3,4,5]
   const firstElement = array1.shift()
   const lastElement = array1.pop()
+  
   console.log(array1)
   console.log(firstElement)
   console.log(lastElement)
