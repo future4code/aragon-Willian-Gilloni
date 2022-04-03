@@ -25,9 +25,9 @@
          console.log(`Usuario - cartas: ${carta1Usuario.texto} ${carta2Usuario.texto} - ${pontuacaoUsuario}`)
          console.log(`O COmputador - cartas: ${cartaComputador1.texto} ${cartaComputador2.texto} - ${pontuacaoComputador}`)
         
-         if(pontuacaoUsuario > pontuacaoComputador) {
+         if(pontuacaoUsuario > pontuacaoComputador && pontuacaoUsuario < 21) {
             console.log("O usuário ganhou!")
-         }     else if (pontuacaoComputador > pontuacaoUsuario){
+         }     else if (pontuacaoComputador > pontuacaoUsuario && pontuacaoComputador < 21){
                console.log("O computador ganhou!")
             }  else if(pontuacaoUsuario === pontuacaoComputador)
             console.log("Empate!")
