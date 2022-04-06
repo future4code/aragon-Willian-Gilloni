@@ -1,5 +1,4 @@
-
-//----------------------exercicio de js 1 ------------------------------------
+<!-----------Exercicio de fixação de Javascript 1------------------>
 ```
 function calculaSalario(qtdeCarrosVendidos, valorTotalVendas) {
   let comissao = (qtdeCarrosVendidos * 100) + valorTotalVendas * 0.05
