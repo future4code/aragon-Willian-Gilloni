@@ -72,7 +72,7 @@ div img {
 #container-de-descricao {
     background-color: #2274a5;
     color: white;
-
+    padding-top: 20px;
     
 }
 
@@ -135,3 +135,4 @@ td button {
 #back-button:hover {
     background-color: #635a3d
 }
+
