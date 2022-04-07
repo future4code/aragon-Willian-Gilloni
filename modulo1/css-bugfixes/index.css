@@ -82,6 +82,7 @@ div img {
 
 #container-de-descricao>ol {
     padding: 15px 0px;
+    padding-left: 15px;
 }
 
 #container-para-comprar {
@@ -157,4 +158,8 @@ td button {
 
 .botao:active{
     background-color: hotpink;
+}
+
+table,ol,h2,h3,p {
+    font-family: arial;
 }
