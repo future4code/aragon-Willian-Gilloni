@@ -141,10 +141,18 @@ td button {
     height: 20px;
     width: 20px;
 }
-#lupa:hover{
+#lupa:hover {
     background-color:   hotpink;
 }
 
-#lupa:active{
+#lupa:active {
+    background-color: hotpink;
+}
+
+.botao:hover {
+    background-color: hotpink;
+}
+
+.botao:active{
     background-color: hotpink;
 }
