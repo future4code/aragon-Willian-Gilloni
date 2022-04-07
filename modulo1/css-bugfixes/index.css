@@ -53,7 +53,7 @@ div img {
 }
 
 .container {
-    height: 500px;
+    height: 400px;
     text-align: center;
     
 }
@@ -73,12 +73,14 @@ div img {
     background-color: #2274a5;
     color: white;
     padding-top: 20px;
+    text-align: left;
+    padding-left: 20px;
     
 }
 
 #container-de-descricao>ol {
     padding: 15px 0px;
-
+    padding-left: 15px;
 }
 
 #container-para-comprar {
