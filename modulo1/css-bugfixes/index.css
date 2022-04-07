@@ -31,13 +31,9 @@ img {
     width: 100px;
 }
 
-div>p:first-child {
-    display: inline;
-}
-
-div img {
+/* div img { */
     /* background: black; */
-}
+/* } */
 
 .botao-amarelo {
     background-color: #ffaf43;
@@ -56,8 +52,7 @@ div img {
 
 .container {
     height: 400px;
-    text-align: center;
-    
+    text-align: center;  
 }
 
 .icone {
@@ -75,14 +70,13 @@ div img {
     background-color: #2274a5;
     color: white;
     padding-top: 20px;
-    text-align: left;
-    padding-left: 20px;
-    
+    text-align: center; 
 }
 
 #container-de-descricao>ol {
     padding: 15px 0px;
-    padding-left: 15px;
+    width: 220px;
+    margin: auto;
 }
 
 #container-para-comprar {
@@ -111,7 +105,7 @@ div:last-child {
 table {
     width: 60%;
     margin: auto;
-    
+
 }
 
 td button {
@@ -156,12 +150,15 @@ td button {
 
 .botao:hover {
     background-color: hotpink;
+    margin: auto;
 }
 
 .botao:active{
     background-color: hotpink;
+    margin: auto;
 }
 
-table,ol,h2,h3,p {
+table,ol,h1,h2,h3,p {
     font-family: arial;
+    text-align: center;
 }
