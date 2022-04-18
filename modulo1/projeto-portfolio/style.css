@@ -1,0 +1,62 @@
+body {
+    background-color: purple;
+    display: center;
+    text-align: center;
+    margin: auto;
+}
+
+.botao:hover{
+    background-color: hotpink;
+}
+ p {
+    color: aquamarine;
+ }
+
+ #texto {
+     color: black;
+     text-align: center;
+     margin: auto;
+ }
+
+ .titulo {
+     padding: 20px;
+ }
+
+ .btn::after {
+    content: "Voltar ao topo";
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    transition: margin-top 250ms;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+.btn:hover::after {
+    margin-top:-8px;
+}
+
+ol {
+    list-style: none;
+    padding: 0;
+}
+#menu-h {
+    list-style: none;
+    padding: 0;
+    background-color: grey;
+}
+
+ #menu-h li{
+    display: inline;
+    padding: 30px;
+ }
+
+ #menu-h li a{
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    display: inline-block;
+ }
+
+ #menu-h li a:hover{
+    background-color: blue;
+ }
