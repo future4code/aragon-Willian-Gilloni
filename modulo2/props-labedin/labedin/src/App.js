@@ -82,12 +82,14 @@ function App() {
         <h2>Minhas redes sociais</h2>
         <ImagemButton 
           imagem="https://d2v9ipibika81v.cloudfront.net/uploads/sites/261/2017/01/facebook-logo-3.png" 
-          texto="Facebook" 
+          texto="Facebook"
+          // link="https://facebook.com"  
         />        
 
         <ImagemButton 
           imagem="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1-1.png" 
-          texto="Twitter" 
+          texto="Twitter"
+          // link="https://twitter.com"
         />        
       </div>
     </AppStyled>
