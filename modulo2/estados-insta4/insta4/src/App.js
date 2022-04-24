@@ -11,11 +11,6 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `
-// const lista = listaDePessoas.map((pessoa) => {
-//     return lista
-// })
-
-
 
 class App extends React.Component {
 
@@ -27,23 +22,20 @@ class App extends React.Component {
     listaDePessoas: [
       {
         nome: "Willian",
-        fotoUsuario: "https://picsum.photos/200/200?id=1",
-        fotoPost: "https://picsum.photos/200/200?id=1"
+        fotoUsuario: "https://picsum.photos/50/50",
+        fotoPost: "https://picsum.photos/200/150"
       },
       {
         nome: "Valdomira",
-        fotoUsuario: 'https://picsum.photos/200/200?id=1',
-        fotoPost: 'https://picsum.photos/200/200?id=1'
+        fotoUsuario: 'https://picsum.photos/50/51',
+        fotoPost: 'https://picsum.photos/200/151'
       },
       {
         nome: "Luiz",
-        fotoUsuario: 'https://picsum.photos/200/200?id=1',
-        fotoPost: 'https://picsum.photos/200/200?id=1'
+        fotoUsuario: 'https://picsum.photos/50/52',
+        fotoPost: 'https://picsum.photos/200/152'
       },
     ]
-  }
-  onChangeIdade = (event) => {
-    this.setState({ nomeInput: event.target.value })
   }
 
   onSubmitForm = (event) => {
@@ -84,7 +76,7 @@ class App extends React.Component {
             <input
               name="fotoPost"
               placeholder='fotoPost'
-              value={this.state.nomeInput}
+              value={this.state.nome3Input}
               onChange={this.onChangeNome}
             />
           </label>
