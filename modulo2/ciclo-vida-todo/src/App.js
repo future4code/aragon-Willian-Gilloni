@@ -36,12 +36,17 @@ class App extends React.Component {
     filtro: ''
   }
 
-  componentDidUpdate(prevState) {
-
+  componentDidUpdate() {
+    const listaTarefa =JSON.stringify(this.state.tarefas)
+    window.localStorage.setItem("tarefas", listaTarefa)
   };
 
   componentDidMount() {
-
+    let listaDeTarefa = localStorage.getItem("tarefas")
+    listaDeTarefa = JSON.parse(listaDeTarefa)
+    if (listaDeTarefa !== null) {
+      this.setState({tarefas: listaDeTarefa})
+    }
   };
 
   onChangeInput = (event) => {
