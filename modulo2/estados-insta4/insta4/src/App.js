@@ -8,11 +8,16 @@ import valdomira from './img/valdomira.jpg'
 const MainContainer = styled.div`
   display: flex;
   justify-content: center;
+
   flex-direction: column;
+=======
+  flex-direction: row;
+
   align-items: center;
 `
 
 class App extends React.Component {
+
 
   state = {
     nomeInput: "",
@@ -96,6 +101,12 @@ class App extends React.Component {
   }
 }
 {/* <Post
+=======
+  render() {
+    return (
+      <MainContainer>
+        <Post
+
           nomeUsuario={'Willian'}
           fotoUsuario={will}
           fotoPost={will}
@@ -109,9 +120,16 @@ class App extends React.Component {
         nomeUsuario={'Luiz'}
         fotoUsuario={lui}
         fotoPost={lui}
+
         /> */}
 
 
 
+=======
+        />
+      </MainContainer>
+    );
+  }
+}
 
 export default App;

@@ -1,0 +1,208 @@
+* {
+    margin: 0%;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+header {
+    background-color: white;
+    color: rgb(125, 22, 154);
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+ /* .cabecalho {
+
+    background-color: white;
+    color: rgb(125, 22, 154);
+    padding: 10px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+
+}  */
+
+.cabecalho-imagem {
+    height: 72px;
+}
+.cabecalho-menu {
+    display: flex;
+    gap: 32px;
+}
+.cabecalho-menu-item {
+    font-family: 'Sarala' , sans-serif;
+
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.conteudo {
+    margin-bottom: 48px;
+}
+
+.conteudo-principal {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.conteudo-principal-escrito {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-bottom: 80px;
+}
+
+.conteudo-principal.titulo {
+    font-weight: 400;
+    font-size: 64px;
+}
+
+.conteudo-secundario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 50px;
+    color: blueviolet;
+}
+
+.conteudo-secundario-titulo {
+    padding-top: 48px;
+    font-weight: 400;
+    font-size:24px;
+}
+
+.conteudo-secundario-paragrafo {
+    font-weight: 300;
+    font-size: 18px;
+}
+
+/* .rodape {
+    padding: 32px;
+    border-top: 0.4px solid white;
+    display: flex;
+    justify-content: center;
+}
+
+.rodape-imagem {
+    height: 48px;
+    display: block;
+    margin: 0 auto;
+} */
+.logo {
+    width: 50px;
+}
+
+
+main {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-image: url(img/pessoas-felizes-2.jpg)
+    
+    
+}
+
+footer {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+
+
+.redes-sociais {
+    position:absolute;
+    transform: translateY(-80%);
+    bottom: 0;
+}
+
+
+
+@media screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+    main {
+    
+    } 
+    body {
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    header {
+    margin: auto;
+    width: 100%;
+    }
+    .cabecalho-menu {
+        display: none;
+    }
+} 
+    /* .container{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #checkbox-menu{
+        position: absolute;
+        opacity: 0;
+    }
+    label{
+        cursor: pointer; */
+        /* position: relative;
+        display: block;
+        height: 22px;
+        width: 30px;
+    }
+    label span {
+        position: absolute;
+        display: block;
+        height: 5px;
+        width: 100%;
+        border-radius: 30px;
+        background: orange;
+        transition: 0.25s ease-in-out;
+    } */
+    /* label span:nth-child(1){
+        top: 0;
+    }
+    label span:nth-child(2){
+        top: 8px;
+    }
+    label span:nth-child(3){
+        top: 16px;
+
+    }
+    #checkbox-menu:checked + label span:nth-child(1){
+        transform: rotate(-45deg);
+        top: 8px;
+    }
+    #checkbox-menu:checked + label span:nth-child(2){
+        opacity: 0;
+    }
+    #checkbox-menu:checked + label span:nth-child(3){
+        transform: rotate(45deg);
+        top: 8px;
+    }8/
+
+
