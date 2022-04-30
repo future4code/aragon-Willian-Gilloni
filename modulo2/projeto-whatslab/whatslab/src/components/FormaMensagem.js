@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 
-const MessageFormContainer = styled.div`
+const FormaMensagemContainer = styled.div`
   display: flex;
 `
 
@@ -13,7 +13,7 @@ const TextInput = styled.input`
   flex: 1;
 `
 
-export class MessageForm extends React.Component {
+export class FormaMensagem extends React.Component {
   constructor(props) {
     super(props)
 
@@ -44,11 +44,11 @@ export class MessageForm extends React.Component {
 
   render() {
     return (
-      <MessageFormContainer>
+      <FormaMensagemContainer>
         <UserInput type="text" placeholder={'Usuário'} onChange={this.onChangeUser} value={this.state.userValue}/>
         <TextInput type="text" placeholder={'Mensagem'} onChange={this.onChangeText}  value={this.state.textValue}/>
         <button onClick={this.onSendMessage}>Enviar</button>
-      </MessageFormContainer>
+      </FormaMensagemContainer>
     );
   }
 }

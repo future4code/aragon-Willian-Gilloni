@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import styled from 'styled-components'
-import { MessageForm } from './components/MessageForm';
+import { FormaMensagem } from './components/FormaMensagem';
 
 const AppContainer = styled.div`
   max-width: 600px;
@@ -45,7 +45,7 @@ class App extends React.Component {
             this.state.messages.map((message, index) => <p key={index}><BoldText>{message.user}</BoldText>{': ' + message.text}</p>)
           }
         </MessagesContainer>
-        <MessageForm addMessage={this.addMessage} />
+        <FormaMensagem addMessage={this.addMessage} />
       </AppContainer>
     );
   }
