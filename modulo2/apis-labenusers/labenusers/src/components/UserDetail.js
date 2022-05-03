@@ -99,7 +99,7 @@ class UserDetail extends React.Component {
             value={this.state.email}
             onChange={this.handleEmailChange}
           />
-          <button onClick={this.handleCreateUser}>Salvar edição</button>
+          <button onClick={this.handleCreateUser}>Procurar nome</button>
         </div>
       );
 
