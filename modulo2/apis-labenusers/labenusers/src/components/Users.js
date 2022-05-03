@@ -76,8 +76,7 @@ class Users extends React.Component {
   handleSearchUser = () => {
     axios
       .get(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users${this.state.name
-        }&email=`,
+        `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/search?name=&email=${this.state.name}`,
         header
       )
       .then(response => {
