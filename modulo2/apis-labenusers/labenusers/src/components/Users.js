@@ -119,7 +119,7 @@ class Users extends React.Component {
               value={this.state.name}
               onChange={this.NameChange}
             />
-            <button onClick={this.SearchUser}>Salvar edição</button>
+            <button onClick={this.SearchUser}>Procurar usuário</button>
           </div>
         ) : (
           <UserDetail userId={this.state.userId} changePage={this.changePage} />
