@@ -1,28 +1,35 @@
 import React from "react";
-import "./index.css";
-import SignUpPage from "./components/SignUpPage";
-import Users from "./components/Users";
+import TelaCadastro from "./components/TelaCadastro"
+import TelaListaUsuarios from "./components/telaListaUsuarios";
+
 
 class App extends React.Component {
   state = {
-    currentPage:"signUp"
-  };
-
-  changePage = () => {
-    if (this.state.currentPage === "signUp") {
-      this.setState({ currentPage: "users" });
-    } else {
-      this.setState({ currentPage: "signUp" });
+    telaAtual: "cadastro"
+  }
+  escolheTela = () => {
+    switch (this.state.telaAtual) {
+      case "cadastro":
+        return <TelaCadastro irParaLista={this.irParaLista} />
+      case "lista":
+        return <TelaListaUsuarios irParaCadastro={this.irParaCadastro}/>
+        default:
+        return <div> Erro! Página não encontrada </div>
     }
-  };
+  }
+  irParaCadastro = () => {
+    this.setState({ telaAtual: "cadastro" })
+  }
+  irParaLista = () => {
+    this.setState({ telaAtual: "lista" })
+  }
 
+  
   render() {
     return (
-      <main>
-        <button onClick={this.changePage}> Trocar de tela</button>
-
-          {this.state.currentPage === "signUp" ? <SignUpPage /> : <Users />}
-      </main>
+      <div>
+         {this.escolheTela()}
+      </div>
     );
   }
 }
