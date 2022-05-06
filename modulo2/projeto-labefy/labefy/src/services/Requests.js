@@ -1,4 +1,4 @@
-import React from "react";
+
 import axios from "axios";
 
 const urlGet = "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists"
@@ -14,7 +14,7 @@ const header = {
         Authorization: "willian-gilloni-aragon"
     }
 }
-export const getAllPlaylists = (saveData) => {
+export const getAllPlaylists = () => {
     axios
         .get(urlGet, header)
         .then((response) => {
@@ -69,7 +69,7 @@ export const addTrackToPlayList = (saveData) => {
     })
 }
 
-export const deleteMusicList = (saveData) => {
+export const deleteMusicList = (id) => {
     axios.delete(urlDelete, header)
         .then((response) => {
             console.log(response)

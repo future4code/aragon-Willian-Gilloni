@@ -1,28 +1,34 @@
 import React from 'react';
-import HomePage from "./page/HomePage"
-import MusicListPage from "./page/MusicListPage";
+import HomePage from "./page/HomePage";
+import ListaDeMusicas from "./page/ListaDeMusicas";
 
 class App extends React.Component {
   state = {
-    telaAtual: "HomePage"
+    telaAtual: "homepage",
+    musicaClicadaUrl:""
   }
-  escolheTela = () => {
-    switch (this.state.telaAtual) {
-      case "HomePage":
-        return <HomePage irParaLista={this.irParaLista} />
-      case "lista":
-        return <MusicListPage irParaCadastro={this.irParaCadastro}/>
-        default:
-        return <div> Erro! Página não encontrada </div>
-    }
+
+  goToDetailPAge = (url) => {
+    this.setState({telaAtual:"detail", musicaClicada:url })
   }
-  irParaCadastro = () => {
-    this.setState({ telaAtual: "HomePage" })
+
+  irParaHomePage = () => {
+    this.setState({ telaAtual: "homepage" })
   }
   irParaLista = () => {
     this.setState({ telaAtual: "lista" })
   }
-
+  escolheTela = () => {
+    switch (this.state.telaAtual) {
+      case "homepage":
+        return <HomePage irParaLista={this.irParaLista} />
+      case "lista":
+        return <ListaDeMusicas irParaHomePage={this.irParaHomePage}/>
+        default:
+          return <HomePage url={this.state.musicaClicadaUrl} />
+        
+    }
+  }
 
   render() {
     return (
