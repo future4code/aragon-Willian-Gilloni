@@ -36,13 +36,13 @@ export default function PokeCard(props) {
   return (
     <figure>
       {/* Passo 4d */}
-      <strong>{pokemon.name}</strong>
+      <strong>{pokemon.name && pokemon.name.toUpperCase()}</strong>
       {/* Passo 4d */}
-      <p>Peso: {pokemon.weight} Kilos</p>
+      {pokemon.weight &&<p>Peso: {pokemon.weight} Kilos</p>}
       {/* Passo 4d */}
-      <p>Tipo: {pokemon.types && pokemon.types[0].type.name }</p>
+      {pokemon.types &&<p>Tipo: {pokemon.types && pokemon.types[0].type.name }</p>}
       {/* Passo 4d */}
-      {true && (
+      {pokemon.sprites && (
         <img src={pokemon.sprites.front_default} alt={pokemon.name} />
       )}
     </figure>
