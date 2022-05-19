@@ -1,8 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { BASE_URL, ALUNO } from "../constants/urls"
+import styled from "styled-components";
 
-
+const ProfilePageStyle = styled.div`
+   *{
+    
+    text-align:center
+} 
+`
 function ProfilesPage() {
 
     const [profile, setProfile] = useState(undefined)
@@ -18,35 +24,72 @@ function ProfilesPage() {
 
         axios
             .get(url)
-            .then((response)=> {
+            .then((response) => {
                 setProfile(response.data.profile)
-                console.log(response.data)
+                // console.log(response.data)
             })
-            .catch((error)=> {
+            .catch((error) => {
                 alert("tente novamente")
                 console.log(error.message)
             })
     }
+
+    const chooseProfile = (profileId, choice) => {
+
+        const url = `${BASE_URL}/${ALUNO}/choose-person`
+
+        const body = {
+            id: profileId,
+            choice: choice
+        }
+
+        axios
+            .post(url, body)
+            .then(() => {
+                getProfile()
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }
+    const resetProfiles = () => {
+        const url = `${BASE_URL}/${ALUNO}/clear`
+
+        axios
+            .put(url)
+            .then(() => {
+                alert("Perfis resetados com sucesso")
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }
+
     const profileCard = profile && (
         <section>
             <img
-            src={profile.photo}
-            alt={profile.photo_alt}
-            height={"240px"}
+                src={profile.photo}
+                alt={profile.photo_alt}
+                height={"240px"}
             >
             </img>
             <p>{profile.name}, {profile.age}</p>
             <p>{profile.bio}</p>
 
-            <button onClick={()=> getProfile()} >Proximo Perfil</button>
+            <button onClick={() => chooseProfile(profile.id, false)}>Dislike</button>
+            <button onClick={() => chooseProfile(profile.id, true)} >Like</button>
+
         </section>
     )
 
     return (
-        <div>
-            Olá,eu sou o perfil
+        <ProfilePageStyle>
+            <h1>Perfis</h1>
             {profileCard}
-        </div>
+            <br />
+            <button onClick={() => resetProfiles()} >Resetar Perfils</button>
+        </ProfilePageStyle>
     )
 
-} export default ProfilesPage;
+}
+export default ProfilesPage

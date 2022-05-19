@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import Header from "./components/Header";
 import ProfilesPage from "./components/Pages/ProfilesPage"
 import MatchesPage from "./components/Pages/MatchesPage"
+// import styled from "styled-components";
+
+// const AstroMatchStyle = styled.div `
+//   * {
+//     text-align:center
+//   }
+// `
 
 function App() {
 
