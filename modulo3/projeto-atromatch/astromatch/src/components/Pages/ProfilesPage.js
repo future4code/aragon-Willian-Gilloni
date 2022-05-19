@@ -1,14 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { BASE_URL, ALUNO } from "../constants/urls"
-import styled from "styled-components";
 
-const ProfilePageStyle = styled.div`
-   *{
-    
-    text-align:center
-} 
-`
 function ProfilesPage() {
 
     const [profile, setProfile] = useState(undefined)
@@ -45,7 +38,9 @@ function ProfilesPage() {
 
         axios
             .post(url, body)
-            .then(() => {
+            .then((response) => {
+                if (body.choice && response.data.isMatch)
+                    alert("Deu match!")
                 getProfile()
             })
             .catch((error) => {
@@ -59,36 +54,43 @@ function ProfilesPage() {
             .put(url)
             .then(() => {
                 alert("Perfis resetados com sucesso")
+                getProfile()
             })
             .catch((error) => {
                 console.log(error.message)
             })
     }
 
-    const profileCard = profile && (
+    const profileCard = profile ? (
         <section>
-            <img
+           
+            <p>{profile.name}, {profile.age}</p>
+            <p>{profile.bio}</p>
+            <div className="botoes-like-dislike" >
+                <button onClick={() => chooseProfile(profile.id, false)}>Dislike</button>
+                <img
                 src={profile.photo}
                 alt={profile.photo_alt}
                 height={"240px"}
             >
             </img>
-            <p>{profile.name}, {profile.age}</p>
-            <p>{profile.bio}</p>
-
-            <button onClick={() => chooseProfile(profile.id, false)}>Dislike</button>
-            <button onClick={() => chooseProfile(profile.id, true)} >Like</button>
-
+                <button onClick={() => chooseProfile(profile.id, true)} >Like</button>
+            </div>
         </section>
+    ) : (
+        <div>
+            <h3>Acabaram os matchs.Clique em 'Resetar Perfis' para reiniciar </h3>
+            <button onClick={() => resetProfiles()} >Resetar Perfils</button>
+        </div>
     )
 
     return (
-        <ProfilePageStyle>
+        <div>
             <h1>Perfis</h1>
             {profileCard}
             <br />
-            <button onClick={() => resetProfiles()} >Resetar Perfils</button>
-        </ProfilePageStyle>
+
+        </div>
     )
 
 }

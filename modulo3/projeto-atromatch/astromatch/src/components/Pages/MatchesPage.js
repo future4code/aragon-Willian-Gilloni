@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
 import { BASE_URL, ALUNO } from "../constants/urls"
 import axios from "axios";
-import styled from "styled-components";
 
-const MatchsPagesStyle = styled.div `
-* {
-    text-align:center
-}
-.tituto-match {
-    margin:20px
-}
-`
 
 function MatchesPage() {
 
@@ -39,6 +30,7 @@ function MatchesPage() {
 
     const allMatches = matches && matches.map((match) => {
         return (
+            
             <figure key={match.id} >
                 <img
                 src={match.photo}
@@ -48,7 +40,7 @@ function MatchesPage() {
                 </img>
                 <span>{match.name}</span>
                 <hr/>
-            </figure>
+            </figure>  
         )
     } )
 
