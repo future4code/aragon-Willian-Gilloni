@@ -21,3 +21,39 @@ export const requestLogin = (email, password, navigate) => {
             console.log(error.message)
         })
 }
+
+
+
+export const deleteTrip = (tripId, getTripsData) => {
+    const header = {
+        headers: {
+            auth: localStorage.getItem("token")
+        }
+    }
+    axios
+        .delete(`${BASE_URL}/${ALUNO}/trips/${tripId}`, header)
+        .then(() => {
+            alert("Viagem excluida com sucesso")
+            getTripsData()
+        })
+        .catch((error) => {
+            console.log(error.message)
+        })
+}
+
+export const createTrip = (body, clear, getTripsData) => {
+    const header = {
+        headers: {
+            auth: localStorage.getItem("token")
+        }
+    }
+    axios.post(`${BASE_URL}/${ALUNO}/trips`, body, header)
+    .then(()=> {
+        alert("viagem criada com sucesso!")
+        clear()
+        getTripsData()
+    })
+    .catch((error)=> {
+        alert(error.message)
+    })
+}

@@ -44,6 +44,7 @@ function Header() {
             onChange={handleInputValues}
           />
           <br />
+          <br/>
           <label htmlFor={"password"}>Senha</label>
           <input
             type={"password"}
@@ -52,6 +53,8 @@ function Header() {
             value={password}
             onChange={handleInputValues}
           />
+          <br/>
+          <br/>
           <button onClick={login}>Login</button>
         </section>
       )
