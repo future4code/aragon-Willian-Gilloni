@@ -55,7 +55,7 @@ function HomePage() {
 
     return (
         <>
-            <Header/>
+            <Header />
             <hr />
             <main>
                 <section>

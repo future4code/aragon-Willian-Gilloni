@@ -59,7 +59,7 @@ export const createTrip = (body, clear, getTripsData) => {
 }
 
 export const decideCandidate = (tripId, candidateId, decision, getTripsDetail) => {
-  
+
     const header = {
         headers: {
             auth: localStorage.getItem("token")
@@ -71,28 +71,28 @@ export const decideCandidate = (tripId, candidateId, decision, getTripsDetail) =
 
     axios
         .put(`${BASE_URL}/${ALUNO}/trips/${tripId}/candidates/${candidateId}/decide`,
-         body, 
-         header
-         )
+            body,
+            header
+        )
         .then(() => {
             decision ?
                 alert("Candidato aceito com sucesso")
                 : alert("Candidato reprovado com sucesso")
-                getTripsDetail()
+            getTripsDetail()
         })
         .catch((error) => {
             console.log(error.message)
         })
 }
 
-export const sendApplication = (body,tripId,clear) => {
+export const sendApplication = (body, tripId, clear) => {
     axios
-    .post(`${BASE_URL}/${ALUNO}/trips/${tripId}/apply`, body)
-    .then(()=> {
-        alert("Inscrição realizada com sucesso")
-        clear()
-    })
-    .catch((error)=> {
-        alert(error.response.message)
-    })
+        .post(`${BASE_URL}/${ALUNO}/trips/${tripId}/apply`, body)
+        .then(() => {
+            alert("Inscrição realizada com sucesso")
+            clear()
+        })
+        .catch((error) => {
+            alert(error.response.message)
+        })
 }

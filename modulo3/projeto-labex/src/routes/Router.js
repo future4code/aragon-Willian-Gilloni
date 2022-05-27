@@ -5,17 +5,17 @@ import HomePage from "../pages/HomePage"
 import React from "react"
 import TripDetailsPage from "../pages/TripDetailsPage"
 
-function Router () {
+function Router() {
     return (
         <BrowserRouter>
-        <Routes>
-            <Route path={"/"} element={<HomePage />} />
-            <Route path={"/admin"} element={<AdminPage/>}/>
-            <Route path={"*"} element={<ErrorPage />} />
-            <Route path={"/admin/:tripId/details"} element={<TripDetailsPage/>}/>
-        </Routes>
+            <Routes>
+                <Route path={"/"} element={<HomePage />} />
+                <Route path={"/admin"} element={<AdminPage />} />
+                <Route path={"*"} element={<ErrorPage />} />
+                <Route path={"/admin/:tripId/details"} element={<TripDetailsPage />} />
+            </Routes>
         </BrowserRouter>
-        )
+    )
 }
 
 
