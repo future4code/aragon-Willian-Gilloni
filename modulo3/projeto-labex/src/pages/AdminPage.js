@@ -52,7 +52,7 @@ function AdminPage() {
 
     return (
         <main>
-            <Header actualPage={"admin-page"} />
+            <Header />
             <hr />
                 <section>
                     <h2>Crie uma nova viagem</h2>
@@ -98,6 +98,7 @@ function AdminPage() {
                             onChange={onChange}
                             pattern={"^.{20,}$"}
                             title={"O nome deve ter no mínimo 20 caracteres"}
+                            required
                         />
                         <label htmlFor={"duration"}>Duração &#40;em dias&#41;:</label>
                         <input

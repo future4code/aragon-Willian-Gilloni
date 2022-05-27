@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { goToHomePage } from "../routes/coordinator";
 import {requestLogin} from "../services/requests"
 
+
 function Header() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
@@ -34,7 +35,7 @@ function Header() {
       (
         <button onClick={logout}>Logout</button>
       ) : (
-        <section>
+        <form onSubmit={login}>
           <label htmlFor={"email"}>Email</label>
           <input
             type={"text"}
@@ -55,8 +56,8 @@ function Header() {
           />
           <br/>
           <br/>
-          <button onClick={login}>Login</button>
-        </section>
+          <button type={"submit"}>Login</button>
+        </form>
       )
 
   

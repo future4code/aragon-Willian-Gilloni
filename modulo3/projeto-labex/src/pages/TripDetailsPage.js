@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useRequestData from "../hooks/useRequestData"
 import { goToAdminPage, goToHomePage } from "../routes/coordinator"
+import { decideCandidate } from "../services/requests"
 
 
 function TripDetailsPage() {
@@ -10,7 +11,7 @@ function TripDetailsPage() {
 
     const params = useParams()
 
-    const [detailsData] = useRequestData(`trip/${params.tripId}`, {})
+    const [detailsData , getTripsDetail] = useRequestData(`trip/${params.tripId}`, {})
     // console.log(detailsData)
     useEffect(() => {
         if (!localStorage.getItem("token")) {
@@ -18,7 +19,11 @@ function TripDetailsPage() {
         }
     }, [navigate])
 
-    const candidatesList = detailsData.trip && detailsData?.trip.candidates.map((candidate) => {
+    const decide = (candidateId,decision) => {
+        decideCandidate(params.tripId,candidateId,decision,getTripsDetail)
+    }
+
+    const candidatesList = detailsData.trip && detailsData.trip.candidates.map((candidate) => {
         return (
             <div key={candidate.id}>
                 <span><b>Nome:</b> {candidate.name} - </span>
@@ -26,12 +31,16 @@ function TripDetailsPage() {
                 <span><b>Idade:</b> {candidate.age} - </span>
                 <span><b>País:</b> {candidate.country} - </span>
                 <span><b>Texto de Candidatura:</b> {candidate.applicationText} </span>
-                <button>Aprovar</button>
-                <button>Reprovar</button>
+                <button onClick={()=> decide(candidate.id,true)}>Aprovar</button>
+                <button onClick={()=> decide(candidate.id, false)}>Reprovar</button>
             </div>
         )
     })
 
+    const approvedList = detailsData.trip && detailsData.trip.approved.map((participant) => {
+        return <li key={participant.id}>{participant.name}</li>
+    })
+    
     return (
         <div>
             <button onClick={()=> goToAdminPage(navigate)}>Sair de detalhes</button>
@@ -40,7 +49,8 @@ function TripDetailsPage() {
             <h3>Lista de Candidatos</h3>
             {candidatesList}
             <hr/>
-            <h3>Lista de Aprovados</h3>
+            <h3>Lista de Aprovados</h3>^
+            {approvedList}
         </div>
     )
 }
