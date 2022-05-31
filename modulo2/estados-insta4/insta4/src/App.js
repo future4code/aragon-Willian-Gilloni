@@ -9,9 +9,13 @@ const MainContainer = styled.div`
   display: flex;
   justify-content: center;
 
+
   flex-direction: column;
 =======
   flex-direction: row;
+
+=======
+  flex-direction: column;
 
   align-items: center;
 `
@@ -32,6 +36,7 @@ class App extends React.Component {
       },
       {
         nome: "Valdomira",
+
         fotoUsuario: 'https://picsum.photos/200/200?id=1',
         fotoPost: 'https://picsum.photos/200/200?id=1'
       },
@@ -39,6 +44,15 @@ class App extends React.Component {
         nome: "Luiz",
         fotoUsuario: 'https://picsum.photos/200/200?id=1',
         fotoPost: 'https://picsum.photos/200/200?id=1'
+
+        fotoUsuario: 'https://picsum.photos/50/51',
+        fotoPost: 'https://picsum.photos/200/151'
+      },
+      {
+        nome: "Luiz",
+        fotoUsuario: 'https://picsum.photos/50/52',
+        fotoPost: 'https://picsum.photos/200/152'
+
       },
     ]
   }
@@ -55,6 +69,7 @@ class App extends React.Component {
 
     this.setState({ listaDepessoas: novaListaDePessoas })
   }
+
   render() {
     return (
 
@@ -101,11 +116,57 @@ class App extends React.Component {
   }
 }
 {/* <Post
-=======
+
+
   render() {
     return (
+
       <MainContainer>
+      
         <Post
+
+        <form onSubmit={this.onSubmitForm}>
+          <label for="">
+            <input
+              name="Nome"
+              placeholder='Nome'
+              value={this.state.nomeInput}
+              onChange={this.onChangeNome}
+            />
+          </label>
+
+          <label>
+            <input
+              name="fotoUsuario"
+              placeholder='fotoUsuario'
+              value={this.state.nome2Input}
+              onChange={this.onChangeNome}
+            />
+          </label>
+          <label for="">
+            <input
+              name="fotoPost"
+              placeholder='fotoPost'
+              value={this.state.nome3Input}
+              onChange={this.onChangeNome}
+            />
+          </label>
+
+          <button>Adicionar</button>
+        </form>
+        {this.state.listaDePessoas.map((pessoa) => {
+          console.log(pessoa)
+          return <Post
+            nomeUsuario={pessoa.nome}
+            fotoUsuario={pessoa.fotoUsuario}
+            fotoPost={pessoa.fotoPost}
+          />
+        })}
+      </MainContainer>
+    );
+  }
+}
+{/* <Post
 
           nomeUsuario={'Willian'}
           fotoUsuario={will}
@@ -125,11 +186,12 @@ class App extends React.Component {
 
 
 
-=======
+
         />
       </MainContainer>
     );
   }
 }
+
 
 export default App;

@@ -16,15 +16,11 @@ export class SecaoComentario extends Component {
 	state = {
 		comentario: ""
 	}
-
 	onChangeComentario = (event) =>  {
 		this.setState({
 			comentario: event.target.value
-		})
-
-		
+		})		
 	}
-
 	render() {
 		return <CommentContainer>
 			<InputComentario
