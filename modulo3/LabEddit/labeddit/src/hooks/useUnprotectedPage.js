@@ -12,7 +12,7 @@ import { goToFeedPage } from "../routes/coordinator"
         if(token) {
             goToFeedPage(navigate)
         }
-    },[])
+    },[navigate])
 }
 
 export default useUnprotectedPage
