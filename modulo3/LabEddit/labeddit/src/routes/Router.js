@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "../pages/ErrorPage";
 import FeedPage from "../pages/FeedPage";
 import LoginPage from "../pages/LoginPage";
-import DetailsPage from "../pages/PostDetailsPage";
+import PostDetailsPage from "../pages/PostDetailsPage";
 import SignupPage from "../pages/SignupPage";
 
 
@@ -14,7 +14,7 @@ function Router() {
                     <Route index element={< FeedPage />} />
                     <Route path="/signup" element={< SignupPage />} />
                     <Route path="/login" element={< LoginPage />} />
-                    <Route path="/post/:postId" element={< DetailsPage />} />
+                    <Route path="/post/:postId" element={< PostDetailsPage />} />
                     <Route path="*" element={< ErrorPage />} />
                 </Routes>
             </BrowserRouter>

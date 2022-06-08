@@ -32,6 +32,7 @@ function FeedPage() {
             <PostCard
             key={post.id}
             post={post}
+            isFeed={true}
             />
         )
     })

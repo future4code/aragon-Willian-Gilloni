@@ -72,3 +72,27 @@ export const requestCreatePost = (form, clear, getPosts) => {
         console.log(error.message)
     })
 }
+
+export const requestCreateComment = (form, clear , getPostComments,postId)=> {
+
+    const header = {
+        headers: {
+            authorization:localStorage.getItem("token")
+        }
+    }
+
+    const body = {
+        body: form.body
+    }
+
+    axios
+    .post(`${BASE_URL}/posts/${postId}/comments`,body, header)
+    .then((response)=> {
+        alert(response.data)
+        getPostComments(postId)
+        clear()
+    })
+    .catch((error)=> {
+        console.log(error.message)
+    })
+}

@@ -8,6 +8,10 @@ const GlobalState = (props) => {
 
         const [posts, setPosts] = useState([])
 
+        const [post,setPost] = useState({})
+
+        const [postComments, setPostComments] = useState([])
+
         const getPosts = () => {
             
             const header = {
@@ -25,12 +29,31 @@ const GlobalState = (props) => {
                 console.log(error.message)
             })
         }
+        
+        const getPostComments = (postId) => {
 
-        const states = {posts}
+            const header = {
+                headers: {
+                    authorization: localStorage.getItem("token")
+                }
+            }
 
-        const setters = {setPosts}
+            axios
+            .get(`$[BASE_URL]/posts/${postId}/comments`, header)
+            .then((response)=> {
+                setPostComments(response.data)
+            })
+            .catch((error)=> {
+                console.log(error.message)
+            })
+        }
 
-        const getters = {getPosts}
+        const states = {posts,post, postComments}
+
+        const setters = {setPosts,setPost, setPostComments}
+
+        const getters = {getPosts,getPostComments}
+
 
         return (
             <GlobalStateContext.Provider value = {{ states, setters, getters}}>

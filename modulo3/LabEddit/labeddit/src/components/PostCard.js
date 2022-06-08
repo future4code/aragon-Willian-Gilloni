@@ -1,10 +1,25 @@
 import { format } from 'date-fns';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import GlobalStateContext from '../global/GlobalStateContext';
+import { goToPostDetailsPage } from '../routes/coordinator';
 
 function PostCard(props) {
+
+    const navigate = useNavigate()
+
+    const {setters} = useContext(GlobalStateContext)
+
+    const {setPost} = setters
 
     const { id, userId, title, body, createdAt, voteSum, commentCount } = props.post
 
     const date = createdAt && format(new Date(createdAt), "dd/MM/yyyy")
+
+    const goToComments = () => {
+        setPost(props.post)
+        goToPostDetailsPage(navigate,id)
+    }
 
     return (
         <article>
@@ -18,7 +33,7 @@ function PostCard(props) {
             <br />
             <button>Votar em "Gostei"</button>
             <p>Comentários: {commentCount ? commentCount : 0}</p>
-            <button>Ver comentários</button>
+            {props.isFeed && <button onClick={goToComments}>Ver comentários</button>}
             <hr />
         </article>
 
