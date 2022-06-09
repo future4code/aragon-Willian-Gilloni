@@ -46,7 +46,7 @@ function FeedPage() {
             <section>
                 <h2>Crie um novo Post</h2>
                 <form onSubmit={createPost}>
-                <label htmlFor="title">Título:</label>
+                <label htmlFor="title">Título do post:</label>
                 <input
                 id={"title"}
                 name={"title"}

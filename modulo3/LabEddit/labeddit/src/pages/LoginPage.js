@@ -47,6 +47,7 @@ function LoginPage() {
                         value={form.password}
                         onChange={onChange}
                     ></input>
+                    <br/>
                     <button type={"submit"}>Entrar</button>
                 </form>
             </section>
