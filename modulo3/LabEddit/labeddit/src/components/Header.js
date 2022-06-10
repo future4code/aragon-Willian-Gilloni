@@ -18,6 +18,7 @@ import { goToLoginPage } from "../routes/coordinator";
     }
     return (
         <header>
+            <h1 className="logo"></h1>
             <h1>LabEddit</h1>
             {props.isProtected && (
                 <section>

@@ -21,7 +21,7 @@ function PostDetailsPage () {
 
     const {states, getters} = useContext(GlobalStateContext)
 
-    const { post, postComments} = states
+    const { post, postComments,isLoading} = states
 
     const {getPostComments} = getters
 
@@ -85,7 +85,7 @@ function PostDetailsPage () {
             <hr/>
             <section>
                 <h2>Lista de Comentários</h2>
-                {showComments}
+                {isLoading ? <p>Carregando...</p>:showComments}
             </section>
         </main>
     );

@@ -13,7 +13,7 @@ function CommentCard(props) {
 
     const [isUpVoted, setIsUpVoted] = useState(false)
 
-    const [getPostComments] = getters
+    const {getPostComments} = getters
 
     const { id, userId,postId, body, createdAt, voteSum, userVote } = props.comment
 

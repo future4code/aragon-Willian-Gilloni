@@ -12,19 +12,27 @@ function FeedPage() {
 
     const { form, onChange, clear } = useForm({ title: "", body: "" })
 
-    const { states, getters } = useContext(GlobalStateContext)
+    const { states,setters, getters } = useContext(GlobalStateContext)
 
-    const { posts } = states
+    const { posts,page,isLoading } = states
+
+    const { setPage } = setters
 
     const { getPosts } = getters
 
     useEffect(() => {
-        getPosts()
+        getPosts(page)
     }, [])
 
     const createPost = (event) => {
         event.preventDefault()
         requestCreatePost(form, clear, getPosts)
+    }
+
+    const changePage = (sum) => {
+        const nextPage = page + sum
+        setPage(nextPage)
+        getPosts(nextPage)
     }
 
     const showPosts = posts.length && posts.map((post)=> {
@@ -75,7 +83,17 @@ function FeedPage() {
             <hr />
             <section>
                 <h2>Lista de Posts</h2>
-                {showPosts}
+                <nav>
+                    <h2>Selecione uma Página</h2>
+                    {page !== 1 &&
+                        <button onClick={()=> changePage(-1)}>Voltar Página</button>
+                    }
+                    <span>Página {page}</span>
+                    {posts.length &&
+                    <button onClick={()=> changePage(1)}>Próxima pagina</button>
+                    }
+                </nav>
+                {isLoading ? <p>Carregando...</p>:showPosts}
             </section>
         </main>
     );

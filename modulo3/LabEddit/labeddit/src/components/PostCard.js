@@ -70,7 +70,6 @@ function PostCard(props) {
                     {isUpVoted ? `Mudar voto para "Não Gostei"` : `Votar em "Não Gostei"`}
                 </button>
             }
-            <br />
             {userVote && isUpVoted ?
                 <button onClick={() => removeVote("up")}>Remover voto "Gostei"</button>
                 : <button onClick={() => chooseVote("up")}>
