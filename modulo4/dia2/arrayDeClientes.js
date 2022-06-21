@@ -1,22 +1,21 @@
-const clients = [
-    {id:1, nome:"Fulano"},
-    {id:2, nome:"Ciclano"},
-    {id:3, nome:"Beltrano"},
-    {id:4, nome:"Fulana"}
+const clientes = [
+    { id: 1, nome: 'Fulano' },
+	{ id: 2, nome: 'Ciclano' },
+	{ id: 3, nome: 'Beltrano' },
+	{ id: 4, nome: 'Fulana' },
 ]
 
-const addClient = (idClient, nomeClient) => {
-    
-    if (clients.id?.includes(idClient)) {
-        return `Erro.Parâmetro inválido (${idClient}). `
+function adicionaCliente(cliente){
+    let index = clientes.findIndex(valida => valida.id === cliente.id);
+    if(index < 0){
+        clientes.push(cliente)
     } else {
-        clients.push({id:idClient,nome:nomeClient})
-        return clients
+        return console.log(`Erro. Parâmetro inválido: id já existente.`)
     }
+
 }
 
-addClient(8,"will")
-
-console.log(clients)
-
-
+adicionaCliente({id:8, nome:'Will'},)
+adicionaCliente({id:3, nome:'Joao'},)
+adicionaCliente({id:6, nome:'Aragon'},)
+console.log(clientes)
