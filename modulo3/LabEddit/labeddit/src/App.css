@@ -1,0 +1,33 @@
+*{
+  text-align: center;
+  background-color: lightgray;
+  
+}
+
+button {
+  /* width: 6vw; */
+  background-color: rgb(31, 31, 138);
+  border-radius: 6px;
+  padding: 6px;
+  color: aquamarine;
+  margin:3px
+}
+  button:hover{
+          cursor: pointer;
+          transition: .3s ease-in-out;
+          border-bottom: 1px solid ;
+          background-color: #eb1b1b;
+          color: rgb(31, 31, 138);
+          transform: scale(1.2);
+      
+    }
+
+    .logo {
+      margin: auto;
+      height: 40px;
+      width: 40px;
+      background-image: url(logo.png);
+      background-size: contain ;
+      background-repeat: no-repeat; 
+      padding: 10px;
+    }
