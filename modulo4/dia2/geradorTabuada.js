@@ -11,4 +11,4 @@ function calculaTabuada(a) {
     }
     return resultado
 }
-console.log(calculaTabuada(11))
+console.log(calculaTabuada(8))
