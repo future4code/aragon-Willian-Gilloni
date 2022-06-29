@@ -1,0 +1,1 @@
+export const numeros = ["2","10","50","100"]
