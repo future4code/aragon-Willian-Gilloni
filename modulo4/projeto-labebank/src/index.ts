@@ -40,17 +40,13 @@ app.post("/users", (req: Request, res: Response) => {
 
         const cpfIndex: number = users.findIndex((user) => user.cpf === cpf);
 
-        const timeElapsed = Date.now();
-        const today: any = new Date(timeElapsed);
-        const actualDate: any = today.toLocaleDateString();
-        const actualDateSplitted: any = actualDate.split("/");
-        const actualYear: number = actualDateSplitted[2];
+        const date: Date = new Date();
+        const actualYear: number = date.getFullYear();
 
         const birthSplitted: any = birthDate.split("/");
         const birthYear: number = birthSplitted[2];
 
         const checkAge: number = actualYear - birthYear;
-        console.log(checkAge);
 
         if (cpfIndex < 0) {
             if (checkAge >= 18) {
@@ -60,7 +56,7 @@ app.post("/users", (req: Request, res: Response) => {
                         name: name,
                         cpf: cpf,
                         birthDate: birthDate,
-                        balance:0,
+                        balance: 0,
                         accountStatement: [
                             {
                                 accountValue: 0,
@@ -73,17 +69,17 @@ app.post("/users", (req: Request, res: Response) => {
                     users.push(newUser);
                     res.status(200).send({
                         message: "User created successfully!",
-                        users: users
-                    })
-
-
+                        users: users,
+                    });
                 }
-                return res.send({ message: "Name must be longer than 3 caracters" });
+                errorCode = 422;
+                throw new Error("Name must be longer than 3 caracters");
             }
-            return res.send({ message: "User must be over 18 years old" });
+            errorCode = 422;
+            throw new Error("User must be over 18 years old");
         }
-        return res.send({ message: "CPF already exists." });
-
+        errorCode = 422;
+        throw new Error("CPF already exists.");
     } catch (error) {
         res.status(errorCode).send({ message: error.message });
     }
@@ -103,23 +99,121 @@ app.get("/users/:id", (req: Request, res: Response) => {
             throw new Error("Id doesn't exist");
         }
         const result: any = users.filter(user => user.id === id)
-        const balance:any = result.map((item:any) => {
+        const balance: any = result.map((item: any) => {
             return item.balance
         })
-        res.status(200).send({ message: "selected id", users: balance})
+        res.status(200).send({ message: "selected id", users: balance })
 
-}   catch (error) {
-    res.send({ message: error.message })
-}
-})
-
-//endpoint add balance
-
-app.put("/users/:id", (req:Request, res:Response)=> {
-    let errorCode = 400
-    try {
-        
     } catch (error) {
-        
+        res.send({ message: error.message })
     }
 })
+
+// Endpoint - Add Balance
+
+app.put("/users/:id", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+
+    try {
+        const id = Number(req.params.id);
+        const { balance } = req.body;
+
+        const indexId: number = users.findIndex((user) => user.id === id);
+
+        if (indexId < 0) {
+            errorCode = 409;
+            throw new Error("Id doesn't exist");
+        }
+
+        if (typeof balance !== "number" || balance <= 0) {
+            errorCode = 422;
+            throw new Error(
+                "Balance type must be a number and balance amount must be greater than zero."
+            );
+        }
+
+        const result: User[] = users.filter((user) => {
+            if (user.id === id) {
+                user.balance = user.balance + balance
+
+                res.status(200).send({
+                    message: "Update balance.",
+                    users: user
+                });
+            }
+        });
+
+    } catch (error) {
+        res.status(errorCode).send({ message: error.message });
+    }
+});
+
+
+//Endpoint - Pay bill
+
+app.put("/users/:id/pay", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+    try {
+        const id = Number(req.params.id);
+
+        const { accountValue, descriptionBillToPay } = req.body;
+
+        const indexId: number = users.findIndex((user) => user.id === id);
+
+        if (indexId < 0) {
+            errorCode = 409;
+            throw new Error("Id doesn't exist");
+        }
+
+        if (!accountValue || !descriptionBillToPay) {
+            errorCode = 422;
+            throw new Error(" AccountValue and descriptionBillToPay must be exist.");
+        }
+
+        if (
+            typeof accountValue !== "number" ||
+            typeof descriptionBillToPay !== "string"
+        ) {
+            errorCode = 422;
+            throw new Error(
+                " AccountValue type must be a number and descriptionBillToPay type must be a string."
+            );
+        }
+
+        if (accountValue <= 0 || descriptionBillToPay.length < 6) {
+            errorCode = 422;
+            throw new Error(
+                " AccountValue must be a number greater than zero and descriptionBillToPay must be longer than 6 caracters"
+            );
+        }
+
+        const date: Date = new Date()
+        const actualDate = date.toLocaleDateString()
+
+        const newStatement = {
+            accountValue: accountValue,
+            descriptionBillToPay: descriptionBillToPay,
+            paymentDate: actualDate
+        };
+
+        const checkPay: User[] = users.filter((user) => {
+            if (user.id === id) {
+                if (user.balance > accountValue) {
+                    user.balance = user.balance - accountValue;
+                    user.accountStatement.push(newStatement);
+                    res.status(200).send({
+                        message: "Successfully paid",
+                        users: user,
+                    })
+                    return checkPay
+                }
+                errorCode = 422;
+                throw new Error(
+                    "The account amount cannot be greater than the balance amount."
+                );
+            }
+        });
+    } catch (error) {
+        res.status(errorCode).send({ message: error.message });
+    }
+});
