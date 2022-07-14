@@ -64,10 +64,11 @@ app.post("/funcionarios", async (req: Request, res: Response) => {
 
     const [funcionarios] = await connection.raw(`
     SELECT * FROM Funcionarios
-    WHERE email = "${email}";
+    WHERE LOWER(email) = "${email.toLowerCase()}";
     `)
-    console.log(funcionarios)
-    if (funcionarios.email == email) {
+    const checkEmail = funcionarios[0]
+
+    if (checkEmail !== undefined) {
       errorCode = 409
       throw new Error("Email ja cadastrado.")
     }
@@ -95,19 +96,9 @@ app.post("/funcionarios", async (req: Request, res: Response) => {
 app.put("/funcionarios/:id", async (req: Request, res: Response) => {
   let errorCode = 400
   try {
-    const id = Number(req.params.id)
+    const id = req.params.id
     const email = req.body.email
 
-    // const [funcionarios] = await connection.raw(`
-    // SELECT * FROM Funcionarios
-    // WHERE id = "${id}";
-    // `)
-
-    // if(funcionarios.id !== id) {
-    //   errorCode = 409
-    //   throw new Error("ID inexistente");
-
-    // }
 
     if (!email) {
       errorCode = 422
@@ -123,18 +114,30 @@ app.put("/funcionarios/:id", async (req: Request, res: Response) => {
       errorCode = 422
       throw new Error("Email deve possuir @.");
     }
+   
+    const [funcionarios] = await connection.raw(`
+    SELECT * FROM Funcionarios
+    WHERE id LIKE "%${id}%";
+    `)
+    const checkId = funcionarios[0]
 
+    if(checkId === undefined) {
+      errorCode = 409
+      throw new Error("ID inexistente");
 
-    // const [funcionarios] = await connection.raw(`
-    // SELECT * FROM Funcionarios
-    // WHERE email = "${email}";
-    // `)
+    }
 
-    // if (funcionarios.email == email) {
-    //   errorCode = 409
-    //   throw new Error("Email ja cadastrado.")
-    // }
+    const [emails] = await connection.raw(`
+    SELECT * FROM Funcionarios
+    WHERE LOWER(email) = "${email.toLowerCase()}";
+    `)
 
+    const checkEmail = emails[0]
+
+    if (checkEmail !== undefined) {
+      errorCode = 409
+      throw new Error("Email ja cadastrado.")
+    }
 
     await connection.raw(`
     UPDATE Funcionarios
@@ -154,17 +157,18 @@ app.delete("/funcionarios/:id", async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id)
 
-    // const [funcionarios] = await connection.raw(`
-    // SELECT * FROM Funcionarios
-    // WHERE id = "${id}";
-    // `)
-    // const funcionarioEncontrado = funcionarios[0]
+    const [funcionarios] = await connection.raw(`
+    SELECT * FROM Funcionarios
+    WHERE id LIKE "%${id}%";
+    `)
+    const checkId = funcionarios[0]
 
-    // if (!funcionarioEncontrado) {
-    //   errorCode = 404
-    //   throw new Error("Funcionario não encontrado");
-    // }
-    
+    if(checkId === undefined) {
+      errorCode = 409
+      throw new Error("ID inexistente");
+
+    }
+
     await connection.raw(`
     DELETE FROM Funcionarios
     WHERE id = ${id};
