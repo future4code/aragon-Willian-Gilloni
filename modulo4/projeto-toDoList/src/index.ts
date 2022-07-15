@@ -4,6 +4,11 @@ import { ping } from "./endpoints/ping";
 import { searchUsers } from "./endpoints/users";
 import { searchTasks } from "./endpoints/tasks";
 import { searchTasksUsers } from "./endpoints/responsibles";
+import { editNickname } from "./endpoints/editNickname";
+import { deleteTask } from "./endpoints/deleteTask";
+import { editStatusTask } from "./endpoints/editStatusTask";
+import { addResponsibles } from "./endpoints/addResponsibles";
+
 
 const app = express();
 
@@ -24,3 +29,12 @@ app.get("/users", searchUsers)
 app.get("/tasks", searchTasks)
 
 app.get( "/tasks/:taskId/users",  searchTasksUsers)
+
+app.put("/users/:userId", editNickname)
+
+app.post("/tasks/:taskId/users", addResponsibles)
+
+app.put("/tasks/:taskId", editStatusTask)
+
+app.delete("/tasks/:taskId", deleteTask)
+
