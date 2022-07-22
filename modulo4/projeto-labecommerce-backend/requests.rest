@@ -27,3 +27,6 @@ GET http://localhost:3003/products
 
 ### Endpoint Register new product
 POST http://localhost:3003/purchases
+
+### Endpoint Search purchase by id
+GET http://localhost:3003/users/101/purchases

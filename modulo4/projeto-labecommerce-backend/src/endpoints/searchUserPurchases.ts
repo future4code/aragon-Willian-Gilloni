@@ -17,10 +17,14 @@ export const searchUserPurchases = async (req: Request, res: Response) => {
     }
 
     const [checkUserPurchases] = await connection.raw(`
-    SELECT product_id ,quantity ,total_price
-    FROM Labe_Purchases
-    JOIN Labe_Users
-    ON Labe_Purchases.user_id = ${id};`)
+    SELECT
+        email, name, price, quantity, total_price
+        FROM Labe_Purchases
+        JOIN Labe_Products
+        ON Labe_Purchases.product_id = Labe_Products.id
+        JOIN Labe_Users
+        ON Labe_Purchases.user_id = Labe_Users.id
+        WHERE Labe_Purchases.user_id = ${id};`)
 
     res.status(200).send({purchases: checkUserPurchases});
   } catch (error) {
