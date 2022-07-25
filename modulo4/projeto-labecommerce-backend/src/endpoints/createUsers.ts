@@ -22,8 +22,25 @@ export const createUsers = async (req: Request, res: Response) => {
             throw new Error("Email and password must be a string.")
         }
 
+        if (!email.includes("@")) {
+            errorCode = 422;
+            throw new Error("Error: invalid 'e-mail' format.");
+          }
+      
+          if (password.length < 5) {
+            errorCode = 422;
+            throw new Error("Error: 'password' must have more then 5 characters.");
+          }
+      
+          const setNewId = await connection(TABLE_USERS)
+            .select()
+      
+          const lastUser = setNewId [setNewId.length -1]
+          const lastUserId = Number(lastUser.id)
+      
+
         const newUser: User = {
-            id: Date.now().toString(),
+            id: (lastUserId + 1).toString(),
             email: email,
             password: password,
         };
