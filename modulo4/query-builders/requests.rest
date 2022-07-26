@@ -1,0 +1,27 @@
+### Ping
+GET http://localhost:3003/ping
+
+### Search Perfumes
+GET http://localhost:3003/perfumes?q=a&&sort=
+
+### Create a new perfumes
+POST http://localhost:3003/perfumes
+Content-Type: application/json
+
+{
+        "name": "will",
+        "brand": "Mont Blanc",
+        "price": 351.00,
+        "ml": 75
+}
+
+### Edit perfume price
+PUT http://localhost:3003/perfumes/10
+Content-Type: application/json
+
+{
+        "price": 888.00
+}
+
+### Delete perfume
+DELETE http://localhost:3003/perfumes/10
