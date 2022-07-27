@@ -21,20 +21,3 @@ app.listen(process.env.PORT || 3003, () => {
 
 app.get("/ping", ping)
 
-// Exercício 1 - Create users
-app.post("/users", createUser)
-
-// Exercício 2 - Get users
-app.get("/users", getUsers)
-
-// Exercício 3 - Create product
-app.post("/products", createProduct)
-
-// Exercício 4 - Get products
-app.get("/products", getProducts)
-
-// Exercício 5 - Create purchase
-app.post("/purchases", createPurchase)
-
-// Exercício 6 - Get user purchases
-app.get("/users/:id/purchases", getUserPurchases)
