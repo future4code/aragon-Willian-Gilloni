@@ -15,16 +15,23 @@ export abstract class BaseDatabase {
          multipleStatements: true
       },
    })
-
    protected abstract TABLE_NAME: string
 
-   protected async getAll() {
+   protected async getAll(){
       const result = await BaseDatabase
-         .connection(this.TABLE_NAME)
-         .select()
-
+      .connection(this.TABLE_NAME)
+      .select()
       return result
    }
+
+   // protected async getItem(item:any){
+   //    const result = await BaseDatabase
+   //    .connection(this.TABLE_NAME)
+   //    .select(item)
+   //    .where("module",">","0")
+
+   //    return result
+   // }
 
    protected async create(item: any) {
       await BaseDatabase
@@ -32,12 +39,9 @@ export abstract class BaseDatabase {
          .insert(item)
    }
 
-   protected async getItemById(id: string) {
-      const result = await BaseDatabase
-          .connection(this.TABLE_NAME)
-          .select()
-          .where({ id: id })
-
-      return result
-  }
+   protected async edit(item: any) {
+      await BaseDatabase
+         .connection(this.TABLE_NAME)
+         .update(item)
+   }
 }
