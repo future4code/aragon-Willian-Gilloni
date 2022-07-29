@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { ClassroomDataBase } from "../database/ClassroomDatabase";
-import { classrooms, students } from "../database/migrations/data";
 import { Classroom } from "../models/Classroom";
-import { Student } from "../models/Student";
 
 export class ClassroomController {
     public async getAllClassrooms(req: Request, res: Response) {
@@ -23,9 +21,16 @@ export class ClassroomController {
             const name = req.body.name
             const module = req.body.module
 
-            if (!name) {
-                throw new Error("Body inválido.")
+            if (!name || !module) {
+                errorCode = 400
+                throw new Error("Body invalid.")
             }
+
+            if (typeof name !== "string" || typeof module !== "number" ){
+                errorCode = 400
+                throw new Error("Name must be a string or module must be a number.");   
+            }
+
             const classroom = new Classroom(
                 Date.now().toString(),
                 name,
@@ -53,57 +58,28 @@ export class ClassroomController {
         }
     }
 
-    // public async updateModule(req: Request, res: Response) {
-    //     let errorCode = 400
-    //     try {
-    //         const module = req.body.module
-
-    //         if (!module) {
-    //             throw new Error("Body inválido.")
-    //         }           
-
-    //         const classroomDatabase = new ClassroomDataBase()
-    //         await classroomDatabase.edit(classroom)
-
-    //         res.status(201).send({ message: "Classroom created", classroom: classroom })
-    //     } catch (error) {
-    //         res.status(errorCode).send({ message: error.message })
-    //     }
-    // }
-
-    public async createStudents(req: Request, res: Response) {
-        let errorCode = 400
+    public async updateModule(req: Request, res: Response) {
+        let errorCode = 400;
         try {
-            const {name,email,birthdate,classroom_id} = req.body
-            if (!name || !email || !birthdate || !classroom_id) {
-                throw new Error("Body inválido.")
-            }
-
-            const student = new Student(
-                Date.now().toString(),
-                name,
-                email,
-                birthdate,
-                classroom_id
-
-            )
-            res.status(200).send({ student: student })
-        } catch (error) {
-            res.status(errorCode).send({ message: error.message })
-        }
-    }
+          const id = req.params.classroom_id
+          const module = req.body.module
     
-    public async getAllStudents(req: Request, res: Response) {
-        let errorCode = 400
-        try {
-            const studentDatabase = new ClassroomDataBase()
-            const result = await studentDatabase.getAll()
-
-            res.status(200).send({ classrooms: result })
-        } catch (error) {
-            res.status(errorCode).send({ message: error.message })
+          if (!module) {
+            throw new Error("Error: missing parameters.");
+          }
+          
+          if (typeof id !== "string" || typeof module !== "string" ){
+            errorCode = 400
+            throw new Error("Id and module must be a string.");           
         }
-    }
-
+          
+          const classroomDatabase = new ClassroomDataBase();
+          await classroomDatabase.updateModule(id, module);
+    
+          res.status(200).send({ message: "Module updated successfully." });
+        } catch (error) {
+          res.status(errorCode).send({ message: error.message });
+        }
+      } 
 }
 

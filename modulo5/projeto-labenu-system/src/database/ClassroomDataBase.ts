@@ -15,26 +15,26 @@ export class ClassroomDataBase extends BaseDatabase {
 
     public async getItem(name: string, module: string) {
         const result = await BaseDatabase
-           .connection(this.TABLE_NAME)
-           .select(name, module)
-           .where("module", "!=", "0")
+            .connection(this.TABLE_NAME)
+            .select(name, module)
+            .where("module", "!=", "0")
 
         return result
-     }
-
-     public async edit(classroom: Classroom) {
-        return super.edit(classroom)
     }
 
-    //  public async editModuleClassroom(id:string,module: string) {
-    //     const result = await ClassroomDataBase
-    //        .connection(ClassroomDataBase.TABLE_CLASSROOMS)
-    //        .update(this.TABLE_NAME)
-    //        .select({module})
-    //        .where({id:id})
+    public async getClassroomById(id: string) {
+        const result = await BaseDatabase.connection(ClassroomDataBase.TABLE_CLASSROOMS)
+            .select()
+            .where({ id: id });
 
-    //     return result
+        return result[0];
+    }
 
-    //  }
+    public async updateModule(id: string, newModule: string) {
+        await BaseDatabase
+            .connection(ClassroomDataBase.TABLE_CLASSROOMS)
+            .update({ module: newModule })
+            .where({ id: id })
+    }
 }
 

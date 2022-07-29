@@ -24,24 +24,10 @@ export abstract class BaseDatabase {
       return result
    }
 
-   // protected async getItem(item:any){
-   //    const result = await BaseDatabase
-   //    .connection(this.TABLE_NAME)
-   //    .select(item)
-   //    .where("module",">","0")
-
-   //    return result
-   // }
-
    protected async create(item: any) {
       await BaseDatabase
          .connection(this.TABLE_NAME)
          .insert(item)
    }
 
-   protected async edit(item: any) {
-      await BaseDatabase
-         .connection(this.TABLE_NAME)
-         .update(item)
-   }
 }

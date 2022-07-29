@@ -17,7 +17,7 @@ Content-Type: application/json
 GET http://localhost:3003/classrooms/active
 
 ### Exercicio3-edit module classroom
-PUT http://localhost:3003/classrooms/classroomId
+PUT http://localhost:3003/classrooms/102/module
 Content-Type: application/json
 
 {
@@ -29,8 +29,23 @@ POST http://localhost:3003/classrooms/student
 Content-Type: application/json
 
 {
-    "name":"jose",
-    "email":"jose@gmail.com",
-    "birthdate":"1888/10/10",
-    "classroom_id":"3"
+    "name":"Lu",
+    "email":"luiz@gmail.com",
+    "birthdate":"10/10/1800",
+    "classroom_id":""
 }
+
+
+### Exercicio5-get student
+GET http://localhost:3003/students
+
+### Exercicio6 - edit student by classroom_id
+PUT http://localhost:3003/students/201/classroom_id
+Content-Type: application/json
+
+{
+    "classroom_id": "102"
+}
+
+### Exercicio7 - get students by classroom_Id
+GET http://localhost:3003/students/101
