@@ -1,7 +1,7 @@
-import { BaseDatabase } from "../BaseDataBase"
-import { ClassroomDataBase} from "../ClassroomDataBase"
+import { BaseDatabase } from "../BaseDatabase"
+import { ClassroomDatabase} from "../ClassroomDataBase"
 import {  classrooms, hobbies, students, studentsHobbies,  } from "./data"
-import { StudentsDatabase } from "../StudentsDataBase"
+import { StudentsDatabase } from "../StudentsDatabase"
 
 class Migrations extends BaseDatabase {
     protected TABLE_NAME = ""
@@ -26,9 +26,9 @@ class Migrations extends BaseDatabase {
             ${StudentsDatabase.TABLE_STUDENTS_HOBBIES},
             ${StudentsDatabase.TABLE_STUDENTS},
             ${StudentsDatabase.TABLE_HOBBIES},
-            ${ClassroomDataBase.TABLE_CLASSROOMS};
+            ${ClassroomDatabase.TABLE_CLASSROOMS};
         
-        CREATE TABLE IF NOT EXISTS ${ClassroomDataBase.TABLE_CLASSROOMS}(
+        CREATE TABLE IF NOT EXISTS ${ClassroomDatabase.TABLE_CLASSROOMS}(
             id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             module ENUM("0", "1", "2", "3", "4", "5", "6") DEFAULT "0" NOT NULL
@@ -40,7 +40,7 @@ class Migrations extends BaseDatabase {
             email VARCHAR(255) UNIQUE NOT NULL,
             birthdate DATE NOT NULL,
             classroom_id VARCHAR(255) DEFAULT NULL,
-            FOREIGN KEY (classroom_id) REFERENCES ${ClassroomDataBase.TABLE_CLASSROOMS}(id)
+            FOREIGN KEY (classroom_id) REFERENCES ${ClassroomDatabase.TABLE_CLASSROOMS}(id)
         );
 
         CREATE TABLE IF NOT EXISTS ${StudentsDatabase.TABLE_HOBBIES}(
@@ -59,7 +59,7 @@ class Migrations extends BaseDatabase {
 
     private async insertData() {
         await BaseDatabase
-            .connection(ClassroomDataBase.TABLE_CLASSROOMS)
+            .connection(ClassroomDatabase.TABLE_CLASSROOMS)
             .insert(classrooms)
 
         await BaseDatabase

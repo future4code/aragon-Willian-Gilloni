@@ -1,7 +1,6 @@
 import { Student } from "../models/Student"
 import { Request, Response } from "express";
-import { StudentsDatabase } from "../database/StudentsDataBase";
-import { BaseDatabase } from "../database/BaseDatabase";
+import { StudentsDatabase } from "../database/StudentsDatabase";
 
 export class StudentController {
 

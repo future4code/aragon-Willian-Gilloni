@@ -1,7 +1,8 @@
-import { Classroom, IClassroomDB } from "../models/Classroom"
+import { Classroom } from "../models/Classroom"
 import { BaseDatabase } from "./BaseDatabase"
 
-export class ClassroomDataBase extends BaseDatabase {
+
+export class ClassroomDatabase extends BaseDatabase {
     TABLE_NAME = "Labe_Classrooms"
     public static TABLE_CLASSROOMS = "Labe_Classrooms"
 
@@ -23,7 +24,7 @@ export class ClassroomDataBase extends BaseDatabase {
     }
 
     public async getClassroomById(id: string) {
-        const result = await BaseDatabase.connection(ClassroomDataBase.TABLE_CLASSROOMS)
+        const result = await BaseDatabase.connection(ClassroomDatabase.TABLE_CLASSROOMS)
             .select()
             .where({ id: id });
 
@@ -32,7 +33,7 @@ export class ClassroomDataBase extends BaseDatabase {
 
     public async updateModule(id: string, newModule: string) {
         await BaseDatabase
-            .connection(ClassroomDataBase.TABLE_CLASSROOMS)
+            .connection(ClassroomDatabase.TABLE_CLASSROOMS)
             .update({ module: newModule })
             .where({ id: id })
     }
