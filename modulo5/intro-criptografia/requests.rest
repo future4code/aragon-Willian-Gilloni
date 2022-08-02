@@ -1,0 +1,39 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+
+### Signup
+POST http://localhost:3003/signup
+Content-Type: application/json
+
+{
+    "nickname": "willdev",
+    "email": "will@email.com",
+    "password": "will123"
+}
+
+### Login
+POST http://localhost:3003/login
+Content-Type: application/json
+
+{
+    "email": "will@email.com",
+    "password": "will123"
+}
+
+### Get all users (protected)
+GET http://localhost:3003/users?search=
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJmYTVlYzhkLWU0Y2YtNGQ5YS04ZmM4LWNmNWYzMTM3ZWU0OCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTk0NjU1MjQsImV4cCI6MTY1OTU1MTkyNH0.L9rfe9N5khXLWwCORxFfp91R4YHtqlU2jcArDzRHiLk
+
+### Edit user (protected)
+PUT http://localhost:3003/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJmYTVlYzhkLWU0Y2YtNGQ5YS04ZmM4LWNmNWYzMTM3ZWU0OCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTk0NjU1MjQsImV4cCI6MTY1OTU1MTkyNH0.L9rfe9N5khXLWwCORxFfp91R4YHtqlU2jcArDzRHiLk
+Content-Type: application/json
+
+{
+    "nickname": "willa"
+}
+
+### Delete user (protected)
+DELETE http://localhost:3003/users/96cce702-3b2b-4b29-9213-785699f459f9
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJmYTVlYzhkLWU0Y2YtNGQ5YS04ZmM4LWNmNWYzMTM3ZWU0OCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTk0NjU1MjQsImV4cCI6MTY1OTU1MTkyNH0.L9rfe9N5khXLWwCORxFfp91R4YHtqlU2jcArDzRHiLk
