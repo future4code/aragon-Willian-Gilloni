@@ -197,7 +197,7 @@ export class UserController {
             throw new Error("Password must be a string greater then 6 characters.");
             }
             
-            if(typeof email !== "string" || email.includes("@")){
+            if(typeof email !== "string" || !email.includes("@")){
                 errorCode = 400
                 throw new Error("Email must have @ and must be a string.");                
             }
@@ -254,3 +254,5 @@ export class UserController {
         }
     }
 }
+
+// const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
