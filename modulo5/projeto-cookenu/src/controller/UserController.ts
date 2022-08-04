@@ -145,4 +145,96 @@ export class UserController {
             res.status(errorCode).send({ message: error.message })
         }
     }
+
+    public getAllUsersDB = async (req: Request, res: Response ) => {
+        let errorCode = 400
+            try {
+                const token = req.headers.authorization
+                const search = req.query.q as string
+
+                const authenticator = new Authenticator()
+                const payload = authenticator.getTokenPayload(token)
+
+                if (!payload) {
+                    errorCode = 401
+                    throw new Error("Token faltando ou inválido")
+                }
+
+                const userDatabase = new UserDatabase()
+                const isUserExists = await userDatabase.checkIfExistsById(payload.id)
+
+                if (!isUserExists) {
+                    errorCode = 401
+                    throw new Error("Token inválido")
+                }
+
+                const usersDB = await userDatabase.getAllUsers(search)
+
+                const users = usersDB.map((userDB) => {
+                    return new User(
+                        userDB.id,
+                        userDB.nickname,
+                        userDB.email,
+                        userDB.password,
+                        userDB.role
+                    )
+                })
+
+                const result = users.map((user) => {
+                    return {
+                        id: user.getId(),
+                        nickname: user.getNickname(),
+                        email: user.getEmail()
+                    }
+                })
+
+                res.status(200).send({ users: result })
+
+        } catch (error) {
+            res.status(200).send({ message: error.message })
+        }
+    }
+
+    public deleteUser = async (req: Request, res: Response) => {
+        let errorCode = 400
+        try {
+            const token = req.headers.authorization
+            const id = req.params.id
+
+            if (!token) {
+                errorCode = 422
+                throw new Error("Token ausente")
+            }
+
+            const authenticator = new Authenticator()
+            const payload = authenticator.getTokenPayload(token)
+
+            if (!payload) {
+                errorCode = 401
+                throw new Error("Token inválido")
+            }
+
+            const userDataBase = new UserDatabase()
+            const userDB = await userDataBase.findById(id)
+
+            if (!userDB) {
+                errorCode = 404
+                throw new Error("Id do usuario a ser deletado inválido.")
+            }
+
+            if (payload.role === USER_ROLES.NORMAL) {
+                if (payload.id !== userDB.id) {
+                    errorCode = 403
+                    throw new Error("Somente admins podem deletar usuarios.")
+                }
+            }
+
+            await userDataBase.deleteUser(id)
+
+            res.status(200).send({ message: "Usuario deletado com sucesso!" })
+
+        } catch (error) {
+            res.status(errorCode).send({ message: error.message })
+        }
+    }
 }

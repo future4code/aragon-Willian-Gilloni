@@ -26,4 +26,46 @@ export class UserDatabase extends BaseDatabase {
         
         return result[0]
     }
+
+    public findById = async (id: string) => {
+        const result: IUserDB[] = await BaseDatabase
+            .connection(UserDatabase.TABLE_USERS)
+            .select()
+            .where({ id })
+
+        return result[0]
+    }
+
+    public deleteUser = async (id: string) => {
+        await BaseDatabase
+            .connection(UserDatabase.TABLE_USERS)
+            .delete()
+            .where({ id })
+    }
+
+    public checkIfExistsById = async (id: string) => {
+        const result: IUserDB[] = await BaseDatabase
+            .connection(UserDatabase.TABLE_USERS)
+            .select()
+            .where({ id })
+
+        return result[0] ? true : false
+    }
+
+    public getAllUsers = async (search: string | undefined) => {
+        let result: IUserDB[] = []
+
+        if (search) {
+            result = await BaseDatabase
+                .connection(UserDatabase.TABLE_USERS)
+                .select()
+                .where("nickname", "LIKE", `%${search}%`)
+        } else {
+            result = await BaseDatabase
+                .connection(UserDatabase.TABLE_USERS)
+                .select()
+        }
+
+        return result
+    }
 }
