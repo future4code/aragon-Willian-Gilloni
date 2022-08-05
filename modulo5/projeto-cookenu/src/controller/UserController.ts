@@ -14,31 +14,31 @@ export class UserController {
             const password = req.body.password
 
             if (!nickname || !email || !password) {
-                throw new Error("Parâmetros faltando")
+                throw new Error("Parameters missing.")
             }
 
             if (typeof nickname !== "string") {
-                throw new Error("Parâmetro 'nickname' deve ser uma string")
+                throw new Error("Parameter 'nickname' must be a string.")
             }
 
             if (typeof email !== "string") {
-                throw new Error("Parâmetro 'email' deve ser uma string")
+                throw new Error("Parameter 'email' must be a string.")
             }
 
             if (typeof password !== "string") {
-                throw new Error("Parâmetro 'password' deve ser uma string")
+                throw new Error("Parameter 'password' must be a string.")
             }
 
             if (nickname.length < 3) {
-                throw new Error("O parâmetro 'nickname' deve possuir ao menos 3 caracteres")
+                throw new Error("O parameter'nickname' must have at least 3 characters.")
             }
 
             if (password.length < 6) {
-                throw new Error("O parâmetro 'password' deve possuir ao menos 6 caracteres")
+                throw new Error("The parameter 'password' must have at least 6 characters.")
             }
 
             if (!email.includes("@") || !email.includes(".com")) {
-                throw new Error("O parâmetro 'password' deve possuir ao menos 6 caracteres")
+                throw new Error("The parameter 'email' must have @ and .com")
             }
 
             const idGenerator = new IdGenerator()
@@ -67,7 +67,7 @@ export class UserController {
             const token = authenticator.generateToken(payload)
 
             res.status(201).send({
-                message: "Cadastro realizado com sucesso",
+                message: "Successfully registered",
                 token
             })
         } catch (error) {
@@ -83,23 +83,23 @@ export class UserController {
 
             if (!email || !password) {
                 errorCode = 401
-                throw new Error("Email ou senha faltando")
+                throw new Error("Missing email or password")
             }
 
             if (typeof email !== "string") {
-                throw new Error("Parâmetro 'email' deve ser uma string")
+                throw new Error("Parameter 'email' must be a string.")
             }
 
             if (typeof password !== "string") {
-                throw new Error("Parâmetro 'password' deve ser uma string")
+                throw new Error("Parameter 'password' must be a string.")
             }
 
             if (password.length < 6) {
-                throw new Error("O parâmetro 'password' deve possuir ao menos 6 caracteres")
+                throw new Error("The parameter'password' must have at least 6 characters.")
             }
 
             if (!email.includes("@") || !email.includes(".com")) {
-                throw new Error("O parâmetro 'password' deve possuir ao menos 6 caracteres")
+                throw new Error("The parameter 'email' must have @ and .com")
             }
 
             const userDatabase = new UserDatabase()
@@ -107,7 +107,7 @@ export class UserController {
 
             if (!userDB) {
                 errorCode = 401
-                throw new Error("Email não cadastrado")
+                throw new Error("Email not registered")
             }
 
             const user = new User(
@@ -126,7 +126,7 @@ export class UserController {
 
             if (!isPasswordCorrect) {
                 errorCode = 401
-                throw new Error("Senha inválida")
+                throw new Error("Invalid password")
             }
 
             const payload: ITokenPayload = {
@@ -138,7 +138,7 @@ export class UserController {
             const token = authenticator.generateToken(payload)
 
             res.status(200).send({
-                message: "Login realizado com sucesso",
+                message: "Login successfully",
                 token
             })
         } catch (error) {
@@ -157,7 +157,7 @@ export class UserController {
 
                 if (!payload) {
                     errorCode = 401
-                    throw new Error("Token faltando ou inválido")
+                    throw new Error("Missing or invalid token")
                 }
 
                 const userDatabase = new UserDatabase()
@@ -165,7 +165,7 @@ export class UserController {
 
                 if (!isUserExists) {
                     errorCode = 401
-                    throw new Error("Token inválido")
+                    throw new Error("Invalid token.")
                 }
 
                 const usersDB = await userDatabase.getAllUsers(search)
@@ -203,7 +203,7 @@ export class UserController {
 
             if (!token) {
                 errorCode = 422
-                throw new Error("Token ausente")
+                throw new Error("Missing token")
             }
 
             const authenticator = new Authenticator()
@@ -211,7 +211,7 @@ export class UserController {
 
             if (!payload) {
                 errorCode = 401
-                throw new Error("Token inválido")
+                throw new Error("Invalid token.")
             }
 
             const userDataBase = new UserDatabase()
@@ -219,19 +219,19 @@ export class UserController {
 
             if (!userDB) {
                 errorCode = 404
-                throw new Error("Id do usuario a ser deletado inválido.")
+                throw new Error("Invalid user id to be deleted.")
             }
 
             if (payload.role === USER_ROLES.NORMAL) {
                 if (payload.id !== userDB.id) {
                     errorCode = 403
-                    throw new Error("Somente admins podem deletar usuarios.")
+                    throw new Error("Only admins can delete users.")
                 }
             }
 
             await userDataBase.deleteUser(id)
 
-            res.status(200).send({ message: "Usuario deletado com sucesso!" })
+            res.status(200).send({ message: "User successfully deleted!" })
 
         } catch (error) {
             res.status(errorCode).send({ message: error.message })

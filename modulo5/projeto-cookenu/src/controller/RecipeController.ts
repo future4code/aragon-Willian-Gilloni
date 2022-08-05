@@ -19,7 +19,7 @@ export class RecipeController {
             
             if (!token) {
                 errorCode = 401
-                throw new Error("Token faltando")
+                throw new Error("Missing token ")
             }
 
             const authenticator = new Authenticator()
@@ -27,7 +27,7 @@ export class RecipeController {
 
             if (!payload) {
                 errorCode = 401
-                throw new Error("Token inválido")
+                throw new Error("Invalid Token ")
             }
 
             const recipeDatabase = new RecipeDatabase()
@@ -58,7 +58,7 @@ export class RecipeController {
 
             if (!token) {
                 errorCode = 401
-                throw new Error("Token ausente")
+                throw new Error("Missing token.")
             }
 
             const authenticator = new Authenticator()
@@ -66,28 +66,28 @@ export class RecipeController {
 
             if (!payload) {
                 errorCode = 401
-                throw new Error("Token inválido")
+                throw new Error("invalid token.")
             }
 
             if (!title || !description) {
                 errorCode = 422
-                throw new Error("Parâmetros ausentes");
+                throw new Error("Missing parameters.");
 
             }
 
             if (typeof title !== "string" || typeof description !== "string") {
                 errorCode = 422
-                throw new Error("Parâmetros devem ser do tipo string");
+                throw new Error("Typeof of parameters must be a string.");
             }
 
             if (title.length < 3) {
                 errorCode = 422
-                throw new Error("Parâmetro 'title' deve possuir ao menos 3 caracteres");
+                throw new Error("Patameter 'title' must have at least 3 characters.");
             }
 
             if (description.length < 10) {
                 errorCode = 422
-                throw new Error("Parâmetro 'description' deve possuir ao menos 10 caracteres");
+                throw new Error("Parameter'description' must have at least 10 characters");
             }
 
 
@@ -107,7 +107,7 @@ export class RecipeController {
             await recipeDataBase.createRecipe(recipe)
 
             res.status(201).send({
-                message: "Receita adicionada com sucesso!",
+                message: "Recipe add successfully!",
                 recipe
             })
         } catch (error) {
@@ -124,7 +124,7 @@ export class RecipeController {
 
             if (!token) {
                 errorCode = 422
-                throw new Error("Token ausente")
+                throw new Error("Missing token.")
             }
 
             const authenticator = new Authenticator()
@@ -132,31 +132,31 @@ export class RecipeController {
 
             if (!payload) {
                 errorCode = 401
-                throw new Error("Token inválido")
+                throw new Error("Invalid Token.")
             }
 
             if (!title && !description) {
                 errorCode = 422
-                throw new Error("Parâmetros ausentes");
+                throw new Error("Missing parameters.");
             }
 
 
             if (title && typeof title !== "string") {
                 errorCode = 422
-                throw new Error("Parâmetro 'title' deve ser uma string")
+                throw new Error("Parameter 'title' must be a string.")
             }
 
             if (description && typeof description !== "string") {
                 errorCode = 422
-                throw new Error("Parâmetro 'description' deve ser uma string")
+                throw new Error("Parameter 'description' must be a string.")
             }
 
             if (title && title.length < 3) {
-                throw new Error("O parâmetro 'title' deve possuir ao menos 3 caracteres")
+                throw new Error("Parameter 'title' must have at least 3 characters")
             }
 
             if (description && description.length < 10) {
-                throw new Error("O parâmetro 'description' deve possuir ao menos 10 caracteres")
+                throw new Error("O parameter 'description' must have at least 10 characters.")
             }
 
             const recipeDataBase = new RecipeDatabase()
@@ -164,13 +164,13 @@ export class RecipeController {
 
             if (!receitaDB) {
                 errorCode = 404
-                throw new Error("Id da receita a ser editada inválida")
+                throw new Error("Invalid recipe id to be edited.")
             }
 
             if (payload.role === USER_ROLES.NORMAL) {
                 if (payload.id !== receitaDB.creator_id) {
                     errorCode = 403
-                    throw new Error("Somente admins podem alterar outras receitas além das próprias")
+                    throw new Error("Only admins can change recipes other than their own.")
                 }
             }
 
@@ -189,7 +189,7 @@ export class RecipeController {
             await recipeDataBase.editRecipe(recipe)
 
             res.status(201).send({
-                message: "Edição realizada com sucesso",
+                message: "Editing done successfully",
                 recipe
             })
         } catch (error) {
@@ -204,7 +204,7 @@ export class RecipeController {
 
             if (!token) {
                 errorCode = 422
-                throw new Error("Token ausente")
+                throw new Error("Token missing")
             }
 
             const authenticator = new Authenticator()
@@ -212,7 +212,7 @@ export class RecipeController {
 
             if (!payload) {
                 errorCode = 401
-                throw new Error("Token inválido")
+                throw new Error("Invalid Token.")
             }
 
             const recipeDataBase = new RecipeDatabase()
@@ -220,19 +220,19 @@ export class RecipeController {
 
             if (!receitaDB) {
                 errorCode = 404
-                throw new Error("Id da receita a ser deletada inválida")
+                throw new Error("Invalid recipe id to be deleted")
             }
 
             if (payload.role === USER_ROLES.NORMAL) {
                 if (payload.id !== receitaDB.creator_id) {
                     errorCode = 403
-                    throw new Error("Somente admins podem deletar outras receitas além das próprias")
+                    throw new Error("Only admins can delete recipes other than their own")
                 }
             }
 
             await recipeDataBase.deleteRecipe(id)
 
-            res.status(200).send({ message: "Receita deletada com sucesso!" })
+            res.status(200).send({ message: "Recipe deleted successfully!" })
 
         } catch (error) {
             res.status(errorCode).send({ message: error.message })
