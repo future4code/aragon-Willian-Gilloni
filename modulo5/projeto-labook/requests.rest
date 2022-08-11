@@ -1,0 +1,42 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+### Enpoint signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "will",
+    "email": "will@gmail.com",
+    "password": "bananinha"
+}
+
+### Endpoint login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "astrodev@gmail.com",
+    "password":"bananinha"
+}
+
+### Endpoint create post
+POST http://localhost:3003/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDIzODU2OSwiZXhwIjoxNjYwMzI0OTY5fQ.VH0pEdumXaUDXCU51qps3lgAmmNVcoSmhbYXWP8m9sw
+Content-Type: application/json
+
+{
+    "content": "Olá, meu nome é will!"
+}
+
+### Endpoint Get posts
+GET http://localhost:3003/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDIzODU2OSwiZXhwIjoxNjYwMzI0OTY5fQ.VH0pEdumXaUDXCU51qps3lgAmmNVcoSmhbYXWP8m9sw
+
+### Endpoint get users
+GET http://localhost:3003/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDI0MjA3NywiZXhwIjoxNjYwMzI4NDc3fQ.jOOLCGrc_TwbkCjz-8PtZhn3POsaAm6lppnkkdDFNi0
+
+### Endpoint Delete posts
+DELETE http://localhost:3003/posts/2575dc01-1719-48ba-ace7-100ac40c1b89
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDI0MjA3NywiZXhwIjoxNjYwMzI4NDc3fQ.jOOLCGrc_TwbkCjz-8PtZhn3POsaAm6lppnkkdDFNi0
