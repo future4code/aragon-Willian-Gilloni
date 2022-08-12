@@ -52,6 +52,7 @@ class Migrations extends BaseDatabase {
             user_id VARCHAR(255) NOT NULL,
             FOREIGN KEY (user_id) REFERENCES ${UserDatabase.TABLE_USERS}(id),
             FOREIGN KEY (post_id) REFERENCES ${PostDatabase.TABLE_POSTS}(id)
+            ON DELETE CASCADE
         );
         `)
     }

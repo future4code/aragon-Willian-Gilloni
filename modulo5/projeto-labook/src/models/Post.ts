@@ -68,7 +68,8 @@ export interface IGetPostsInputDTO {
 export interface IGetPostsPost {
     id:string,
     content:string,
-    user_id:string
+    user_id:string,
+    likes:number
 }
 
 export interface IGetpostsOutputDTO {
@@ -89,7 +90,6 @@ export interface IDeletePostInputDTO {
 }
 
 export interface ILikePostInputDTO {
-    token:string,
     user_id:string,
     post_id:string
 }
@@ -100,6 +100,29 @@ export interface ILikePostDTO {
 }
 
 export interface ILikeDBOutputDTO {
+    post_id:string,
+    user_id:string
+    
+}
+
+export interface ILikedPostDTO {
+    post_id:string,
+    user_id:string
+}
+
+export interface IGetLikedPostsDTO {
+    post_id:string,
+    user_id:string
+}
+
+export interface IFindInputDBDTO {
+    token:string,
+    post_id:string,
     user_id:string,
-    post_id:string
+    id:string
+}
+
+export interface IDislikePostInputDBDTO {
+    token:string,
+    id:string
 }

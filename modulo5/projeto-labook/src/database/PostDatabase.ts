@@ -1,4 +1,4 @@
-import { IGetPostsDBDTO, ILikeDBOutputDTO, ILikePostInputDTO, IPostDB, Post } from "../models/Post"
+import { IFindInputDBDTO, IGetPostsDBDTO, ILikeDB, ILikeDBOutputDTO, ILikedPostDTO, ILikePostInputDTO, IPostDB, Post } from "../models/Post"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class PostDatabase extends BaseDatabase {
@@ -11,7 +11,7 @@ export class PostDatabase extends BaseDatabase {
             id: post.getId(),
             content: post.getContent(),
             user_id: post.getUserId(),
-            likes:post.getLikes()
+            likes: post.getLikes()
         }
 
         await BaseDatabase
@@ -46,7 +46,7 @@ export class PostDatabase extends BaseDatabase {
         return usersDB[0]
     }
 
-    public deletePosts = async (id:string) => {
+    public deletePosts = async (id: string) => {
 
         await BaseDatabase
             .connection(PostDatabase.TABLE_POSTS)
@@ -54,21 +54,47 @@ export class PostDatabase extends BaseDatabase {
             .where({ id })
     }
 
-    public likePost = async(like:ILikePostInputDTO) => {
-        const likeDB:ILikeDBOutputDTO = {
-            user_id:like.user_id,
-            post_id:like.post_id
-            }
+    public findLikedPost = async (id: string, user_id: string) => {
+
+        const postLikeDB: ILikeDB[] = await BaseDatabase
+            .connection("Labook_Likes")
+            .select()
+            .where("user_id", "=", `${user_id}`)
+            .andWhere("post_id", "=", `${id}`)
         
-        await BaseDatabase
-        .connection(PostDatabase.TABLE_LIKES)
-        .insert(likeDB)
+            return postLikeDB[0]
+    }
+
+    public likePost = async (like: ILikePostInputDTO) => {
+        const likeDB: ILikeDBOutputDTO = {
+            user_id: like.user_id,
+            post_id: like.post_id
+        }
 
         await BaseDatabase
-        .connection(PostDatabase.TABLE_POSTS)
-        .where("id", "=",`${like.post_id}`)
-        .increment("likes", 1)
-    }   
+            .connection(PostDatabase.TABLE_LIKES)
+            .insert(likeDB)
 
-    // public dislikePost = async(dislike:Il)
+        await BaseDatabase
+            .connection(PostDatabase.TABLE_POSTS)
+            .where("id", "=", `${like.post_id}`)
+            .increment("likes", 1)
+    }
+
+    public findPostById = async (id: string) => {
+        const result = await BaseDatabase
+            .connection(PostDatabase.TABLE_LIKES)
+            .select()
+            .where({ id })
+
+        return result
+    }
+
+    public dislikePost = async (id: string) => {
+        await BaseDatabase
+            .connection(PostDatabase.TABLE_LIKES)
+            .delete()
+            .where("post_id", "=", `${id}`)
+
+    }
 }

@@ -1,5 +1,6 @@
+import { likes } from "../database/migrations/data"
 import { PostDatabase } from "../database/PostDatabase"
-import { ICreatePostInputDTO, IDeletePostInputDTO, IGetPostsDBDTO, IGetPostsInputDTO, IGetpostsOutputDTO, IGetPostsPost, ILikePostDTO, Post } from "../models/Post"
+import { ICreatePostInputDTO, IDeletePostInputDTO, IDislikePostInputDBDTO, IGetLikedPostsDTO, IGetPostsDBDTO, IGetPostsInputDTO, IGetpostsOutputDTO, IGetPostsPost, ILikedPostDTO, ILikePostDTO, ILikePostInputDTO, Post } from "../models/Post"
 import { USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"
@@ -59,22 +60,25 @@ export class PostBusiness {
         }
 
         const postsDB = await this.postDatabase.getPosts(getPostsInputDB)
-
+        
         const posts = postsDB.map(postDB => {
             const post = new Post(
                 postDB.id,
                 postDB.content,
-                postDB.user_id
+                postDB.user_id,
+                postDB.likes
             )
             const postResponse: IGetPostsPost = {
                 id: post.getId(),
                 content: post.getContent(),
-                user_id: post.getUserId()
+                user_id: post.getUserId(),
+                likes: post.getLikes()
             }
-
+            // console.log(postResponse)
             return postResponse
+            
         })
-
+        
         const response: IGetpostsOutputDTO = {
             posts
         }
@@ -115,10 +119,77 @@ export class PostBusiness {
         return response
     }
 
-    likePost = async(input:ILikePostDTO)=> {
+    public likePost = async(input:ILikePostDTO)=> {
         const token = input.token
         const post_id = input.post_id as string
+
         const payload = this.authenticator.getTokenPayload(token)
-        const likeDB = await this.postDatabase.likePost(post_id)
+        const user_id = payload.id
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+
+        const findById = await this.postDatabase.findById(post_id)
+        
+        
+        if(!findById){
+            throw new Error("Post inexistente");     
+        }
+        const likesDB:ILikedPostDTO = {
+            post_id,
+            user_id
+        }
+        // const findLikedPost = await this.postDatabase.findLikedPost(likesDB)
+        
+        // if(findLikedPost){
+        //     throw new Error("Usuario já curtiu este post");     
+        // }
+
+        const inputDB:ILikePostInputDTO = {
+            post_id,
+            user_id:payload.id
+        }
+
+        const likeDB = await this.postDatabase.likePost(inputDB)
+
+        const response = {
+            message:"Post curtido",
+            likeDB
+        }
+        // console.log(post_id,user_id)
+        return response
+    }
+
+    public dislikePost = async(input:IDislikePostInputDBDTO)=> {
+
+        const token = input.token
+        const id = input.id
+
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if(!payload){
+            throw new Error("Token inválido.");           
+        }
+
+        const findPostById = await this.postDatabase.findPostById(id)
+
+        if(!findPostById){
+            throw new Error("Post não encontrado.");           
+        }
+
+        const findLikePost = await this.postDatabase.findLikedPost(id,payload.id)
+        
+        if(!findLikePost){
+            throw new Error("Usuario ainda não curtiu este post.");            
+        }
+
+       await this.postDatabase.dislikePost(id)
+
+       const response = {
+            message:"Post descurtido com sucesso",
+        }
+
+        return response
     }
 }
