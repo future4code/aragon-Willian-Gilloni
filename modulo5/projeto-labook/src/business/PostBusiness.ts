@@ -1,6 +1,6 @@
 import { likes } from "../database/migrations/data"
 import { PostDatabase } from "../database/PostDatabase"
-import { ICreatePostInputDTO, IDeletePostInputDTO, IDislikePostInputDBDTO, IGetLikedPostsDTO, IGetPostsDBDTO, IGetPostsInputDTO, IGetpostsOutputDTO, IGetPostsPost, ILikedPostDTO, ILikePostDTO, ILikePostInputDTO, Post } from "../models/Post"
+import { ICreatePostInputDTO, IDeletePostInputDTO, IDislikePostInputDBDTO, IDislikePostInputDTO, IGetLikedPostsDTO, IGetPostsDBDTO, IGetPostsInputDTO, IGetpostsOutputDTO, IGetPostsPost, ILikedPostDTO, ILikePostDTO, ILikePostInputDTO, Post } from "../models/Post"
 import { USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"
@@ -161,30 +161,37 @@ export class PostBusiness {
         return response
     }
 
-    public dislikePost = async(input:IDislikePostInputDBDTO)=> {
+    public dislikePost = async(input:IDislikePostInputDTO)=> {
 
         const token = input.token
-        const id = input.id
+        const post_id = input.post_id
 
         const payload = this.authenticator.getTokenPayload(token)
+
+        const user_id = payload.id
 
         if(!payload){
             throw new Error("Token inválido.");           
         }
 
-        const findPostById = await this.postDatabase.findPostById(id)
+        const findPostById = await this.postDatabase.findPostById(post_id)
 
         if(!findPostById){
             throw new Error("Post não encontrado.");           
         }
 
-        const findLikePost = await this.postDatabase.findLikedPost(id,payload.id)
+        const findLikePost = await this.postDatabase.findLikedPost(post_id,payload.id)
         
         if(!findLikePost){
             throw new Error("Usuario ainda não curtiu este post.");            
         }
 
-       await this.postDatabase.dislikePost(id)
+        const dislikeDB:IDislikePostInputDBDTO = {
+            post_id,
+            user_id
+        }
+
+       await this.postDatabase.dislikePost(dislikeDB)
 
        const response = {
             message:"Post descurtido com sucesso",

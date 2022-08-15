@@ -123,6 +123,11 @@ export interface IFindInputDBDTO {
 }
 
 export interface IDislikePostInputDBDTO {
+    post_id:string,
+    user_id:string
+}
+
+export interface IDislikePostInputDTO {
     token:string,
-    id:string
+    post_id:string
 }

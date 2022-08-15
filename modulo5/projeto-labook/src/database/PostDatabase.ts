@@ -1,4 +1,4 @@
-import { IFindInputDBDTO, IGetPostsDBDTO, ILikeDB, ILikeDBOutputDTO, ILikedPostDTO, ILikePostInputDTO, IPostDB, Post } from "../models/Post"
+import { IDislikePostInputDBDTO, IFindInputDBDTO, IGetPostsDBDTO, ILikeDB, ILikeDBOutputDTO, ILikedPostDTO, ILikePostInputDTO, IPostDB, Post } from "../models/Post"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class PostDatabase extends BaseDatabase {
@@ -90,11 +90,22 @@ export class PostDatabase extends BaseDatabase {
         return result
     }
 
-    public dislikePost = async (id: string) => {
+    public dislikePost = async (dislike:IDislikePostInputDBDTO) => {
+        const dislikeDB:IDislikePostInputDBDTO = {
+            post_id:dislike.post_id,
+            user_id:dislike.user_id
+        }
+
         await BaseDatabase
             .connection(PostDatabase.TABLE_LIKES)
             .delete()
-            .where("post_id", "=", `${id}`)
-
+            .where("post_id", "=", `${dislike.post_id}`)
+        
+            await BaseDatabase
+            .connection(PostDatabase.TABLE_POSTS)
+            .where("id", "=", `${dislike.post_id}`)
+            .decrement("likes", 1)
+            
+            return dislikeDB
     }
 }
