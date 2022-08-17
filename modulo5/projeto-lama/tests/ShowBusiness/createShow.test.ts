@@ -25,7 +25,7 @@ describe("Testando ShowBusiness", () => {
         expect(response.message).toEqual("Show criado com sucesso")
         expect(response.show.getId()).toEqual("id-mock")
         expect(response.show.getBand()).toEqual("U2")
-
+        expect(response.show.getStartsAt()).toEqual("2022/08/17")
     })
 
     test("deve retornar um erro não caso exista token", async ()=> {
@@ -38,11 +38,12 @@ describe("Testando ShowBusiness", () => {
                 starts_at:Date
             } as unknown as ICreateShowInputDTO
 
-            await showBusiness.createShow(input)
+            const response = await showBusiness.createShow(input)
         } catch (error:unknown) {
             if(error instanceof BaseError) {
                 expect(error.statusCode).toEqual(401)
                 expect(error.message).toEqual("Não autenticado")
+                expect(error.message).toEqual("")
             }
         }
     })

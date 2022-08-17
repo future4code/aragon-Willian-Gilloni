@@ -1,5 +1,3 @@
-
-
 import { BaseDatabase } from "../../src/database/BaseDatabase"
 import { IShowDB, Show } from "../../src/models/Show"
 

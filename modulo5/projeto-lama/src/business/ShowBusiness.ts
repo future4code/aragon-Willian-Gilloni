@@ -30,6 +30,7 @@ export class ShowBusiness {
         if (band.length < 1) {
             throw new RequestError("Parâmetro 'band' inválido: mínimo de 1 caracteres")
         }
+
         if(payload.role === USER_ROLES.NORMAL){          
             throw new UnauthorizedError("Erro: Apenas usuários 'ADMIN' podem criar shows.");                         
         }
@@ -52,13 +53,6 @@ export class ShowBusiness {
     }
 
     public getShows = async (input: IGetShowsInputDTO) => {
-        const { token } = input
-
-        const payload = this.authenticator.getTokenPayload(token)
-
-        if (!payload) {
-            throw new Error("Não autenticado")
-        }
 
         const showsDB = await this.showDatabase.getShows()
 
