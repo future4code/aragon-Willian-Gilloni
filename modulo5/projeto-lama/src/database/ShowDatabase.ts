@@ -1,4 +1,4 @@
-import { IShowDB, Show } from "../models/Show"
+import { IShowDB, ITicketDB, Show } from "../models/Show"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class ShowDatabase extends BaseDatabase {
@@ -39,5 +39,45 @@ export class ShowDatabase extends BaseDatabase {
             .where({ show_id: showId })
 
         return result[0].tickets as number
+    }
+    public findShowById = async (id: string): Promise<IShowDB | undefined> => {
+        const result: IShowDB[] = await BaseDatabase
+            .connection(ShowDatabase.TABLE_SHOWS)
+            .select()
+            .where({ id })
+
+        return result[0]
+    }
+
+    public findTicketById = async (id: string): Promise<ITicketDB | undefined> => {
+        const result: ITicketDB[] = await BaseDatabase
+            .connection(ShowDatabase.TABLE_TICKETS)
+            .select()
+            .where({ id })
+
+        return result[0]
+    }
+
+    public findReservation = async (showId: string, userId: string): Promise<IShowDB | undefined> => {
+        const reserveDB: IShowDB[] = await BaseDatabase
+            .connection(ShowDatabase.TABLE_TICKETS)
+            .select()
+            .where({ show_id: showId })
+            .andWhere({ user_id: userId })
+
+        return reserveDB[0]
+    }
+    public reserveTicket = async (reserveDB: ITicketDB) => {
+        await BaseDatabase
+            .connection(ShowDatabase.TABLE_TICKETS)
+            .insert(reserveDB)
+    }
+
+    public removeReserv = async (showId: string, userId: string) => {
+        await BaseDatabase
+            .connection(ShowDatabase.TABLE_TICKETS)
+            .delete()
+            .where({ show_id: showId })
+            .andWhere({ user_id: userId })
     }
 }

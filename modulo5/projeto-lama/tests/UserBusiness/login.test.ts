@@ -63,10 +63,45 @@ describe("Testando UserBusiness", () => {
             }
         }
     })
+
+    test("deve retornar erro caso o password não seja uma string", async ()=> {
+        expect.assertions(2)
+
+        try {
+            const input = {
+                email:"astrodev@gmail.com",
+                password:0
+            } as unknown as ILoginInputDTO
+
+            await userBusiness.login(input)
+        } catch (error:unknown) {
+            if(error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'password' inválido")
+            }
+        }
+    })
+
+    test("deve retornar erro caso o password não seja uma string", async ()=> {
+        expect.assertions(2)
+
+        try {
+            const input = {
+                email:"astrodev@gmail.com",
+                password:"bana"
+            } as unknown as ILoginInputDTO
+
+            await userBusiness.login(input)
+        } catch (error:unknown) {
+            if(error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'password' inválido: mínimo de 6 caracteres")
+            }
+        }
+    })
 })
 
 
-// - password deve possuir ao menos 6 caracteres
-// - email deve ter um formato válido
-// - O usuário com o e-mail fornecido deve existir no sistema
-
+// if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
+//     throw new RequestError("Parâmetro 'email' inválido")
+// }

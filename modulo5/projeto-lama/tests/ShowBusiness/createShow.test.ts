@@ -25,7 +25,6 @@ describe("Testando ShowBusiness", () => {
         expect(response.message).toEqual("Show criado com sucesso")
         expect(response.show.getId()).toEqual("id-mock")
         expect(response.show.getBand()).toEqual("U2")
-        expect(response.show.getStartsAt()).toEqual("2022/08/17")
     })
 
     test("deve retornar um erro não caso exista token", async ()=> {
@@ -35,16 +34,56 @@ describe("Testando ShowBusiness", () => {
             const input = {
                 token:"",
                 band:"Evanescence",
-                starts_at:Date
+                starts_at:new Date
             } as unknown as ICreateShowInputDTO
 
-            const response = await showBusiness.createShow(input)
+             await showBusiness.createShow(input)
         } catch (error:unknown) {
             if(error instanceof BaseError) {
                 expect(error.statusCode).toEqual(401)
                 expect(error.message).toEqual("Não autenticado")
-                expect(error.message).toEqual("")
             }
         }
     })
+
+    test("deve retornar erro caso o band não seja uma string", async () => {
+        expect.assertions(2)
+        
+        try {
+            const input = {
+                token:"token-astrodev",
+                band:0,
+                starts_at:new Date
+            } as unknown as ICreateShowInputDTO
+
+            await showBusiness.createShow(input)
+        } catch (error: unknown) {
+            if (error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'band' inválido")
+            }
+        }
+    })
+
+    test("deve retornar o tamanho da band deve ser maior que 1 caracter", async () => {
+        expect.assertions(2)
+        
+        try {
+            const input = {
+                token:"token-astrodev",
+                band:"",
+                starts_at:new Date
+            } as unknown as ICreateShowInputDTO
+
+            await showBusiness.createShow(input)
+        } catch (error: unknown) {
+            if (error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'band' inválido: mínimo de 1 caracteres")
+            }
+        }
+    })
+
+
 })
+

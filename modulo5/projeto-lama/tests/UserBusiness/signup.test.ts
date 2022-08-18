@@ -103,16 +103,47 @@ describe("Testando UserBusiness", () => {
             }
         }
     })
+
+    test("deve retornar erro caso name seja menor que 3 caracteres", async () => {
+        expect.assertions(2)
+        
+        try {
+            const input = {
+                name: "wi",
+                email: "will@gmail.com",
+                password: "will88"
+            } as unknown as ISignupInputDTO
+
+            await userBusiness.signup(input)
+        } catch (error: unknown) {
+            if (error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'name' inválido: mínimo de 3 caracteres")
+            }
+        }
+    })
+
+    test("deve retornar erro caso password seja menor que 6 caracteres", async () => {
+        expect.assertions(2)
+        
+        try {
+            const input = {
+                name: "will",
+                email: "will@gmail.com",
+                password: "will"
+            } as unknown as ISignupInputDTO
+
+            await userBusiness.signup(input)
+        } catch (error: unknown) {
+            if (error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'password' inválido: mínimo de 6 caracteres")
+            }
+        }
+    })
 })
 
 
-// if (name.length < 3) {
-//     throw new RequestError("Parâmetro 'name' inválido: mínimo de 3 caracteres")
-// }
-
-// if (password.length < 6) {
-//     throw new RequestError("Parâmetro 'password' inválido: mínimo de 6 caracteres")
-// }
 
 // if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
 //     throw new RequestError("Parâmetro 'email' inválido")

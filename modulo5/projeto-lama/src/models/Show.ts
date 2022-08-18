@@ -69,3 +69,30 @@ export interface IGetShowsInputDTO {
 export interface IGetShowsOutputDTO {
     shows: Show[]
 }
+
+export interface IcreateReservationInputDTO {
+    token:string,
+    showId:string
+}
+
+export interface IcreateReservationInputDTO {
+    token:string,
+    showId:string
+}
+
+export interface IAddReserveOutputDTO {
+    message: string
+}
+
+export interface IDeleteShowInputDTO {
+    token:string,
+    showId:string
+}
+export interface IRemoveShowInputDTO  {
+    token:string
+    showId: string
+}
+
+export interface IRemoveShowOutputDTO {
+    message: string
+}
