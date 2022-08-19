@@ -21,6 +21,9 @@ export class UserDatabase extends BaseDatabase {
             password: user.getPassword(),
             role: user.getRole()
         }
+        await BaseDatabase
+        .connection(UserDatabase.TABLE_USERS)
+        .insert(userDB)
     }
     public getUsers = async (input: IGetUsersDBDTO) => {
         const search = input.search

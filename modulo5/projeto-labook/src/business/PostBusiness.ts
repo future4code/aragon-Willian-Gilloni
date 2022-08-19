@@ -9,7 +9,6 @@ export class PostBusiness {
     constructor(
         private postDatabase: PostDatabase,
         private idGenerator: IdGenerator,
-        // private hashManager: HashManager,
         private authenticator: Authenticator
     ) { }
 
