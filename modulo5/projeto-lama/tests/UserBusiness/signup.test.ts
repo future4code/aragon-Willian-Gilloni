@@ -141,6 +141,25 @@ describe("Testando UserBusiness", () => {
             }
         }
     })
+
+    test("deve retornar erro caso o não possua @ no email", async () => {
+        expect.assertions(2)
+
+        try {
+            const input = {
+                name: "Astrodev",
+                email: "astrodevgmail.com",
+                password: "bananinha"
+            } as unknown as ISignupInputDTO
+
+            await userBusiness.signup(input)
+        } catch (error:unknown) {
+            if(error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'email' inválido")
+            }
+        }
+    })
 })
 
 

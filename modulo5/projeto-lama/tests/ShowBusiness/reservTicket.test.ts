@@ -1,4 +1,3 @@
-
 import { IdGeneratorMock } from "../mocks/services/IdGeneratorMock"
 import { AuthenticatorMock } from "../mocks/services/AuthenticatorMock"
 import { ShowDatabase } from "../../src/database/ShowDatabase"
@@ -28,23 +27,23 @@ describe("Testando ShowBusiness", () => {
 
     })
 
-    test("deve retornar erro caso a senha seja inválida", async () => {
-        expect.assertions(2)
+    // test("deve retornar erro caso o show não seja encontrado", async () => {
+    //     expect.assertions(2)
 
-        try {
-            const input: IcreateReservationInputDTO = {
-                token:"token-astrodev",
-                showId:"201"
-            }
+    //     try {
+    //         const input: IcreateReservationInputDTO = {
+    //             token:"token-astrodev",
+    //             showId:""
+    //         }
 
-            await showBusiness.getShows(input)
-        } catch (error: unknown) {
-            if (error instanceof BaseError) {
-                expect(error.statusCode).toEqual(401)
-                expect(error.message).toEqual("Show não encontrado")
-            }
-        }
-    })
+    //         await showBusiness.reservTicket(input)
+    //     } catch (error: unknown) {
+    //         if (error instanceof BaseError) {
+    //             expect(error.statusCode).toEqual(401)
+    //             expect(error.message).toEqual("Show não encontrado")
+    //         }
+    //     }
+    // })
 })
 
 

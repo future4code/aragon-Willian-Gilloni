@@ -27,7 +27,6 @@ describe("Testando UserBusiness", () => {
         expect(response.token).toEqual("token-astrodev")
     })
 
-
     test("deve retornar erro caso a senha seja inválida", async () => {
         expect.assertions(2)
 
@@ -99,9 +98,23 @@ describe("Testando UserBusiness", () => {
             }
         }
     })
+
+    test("deve retornar erro caso o não possua @ no email", async ()=> {
+        expect.assertions(2)
+
+        try {
+            const input = {
+                email:"astrodevgmail.com",
+                password:"bananinha"
+            } as unknown as ILoginInputDTO
+
+            await userBusiness.login(input)
+        } catch (error:unknown) {
+            if(error instanceof BaseError) {
+                expect(error.statusCode).toEqual(400)
+                expect(error.message).toEqual("Parâmetro 'email' inválido")
+            }
+        }
+    })
 })
 
-
-// if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
-//     throw new RequestError("Parâmetro 'email' inválido")
-// }

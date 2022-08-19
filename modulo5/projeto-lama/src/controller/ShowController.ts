@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ShowBusiness } from "../business/ShowBusiness";
 import { BaseError } from "../errors/BaseError";
-import { IcreateReservationInputDTO, ICreateShowInputDTO, IDeleteShowInputDTO, IGetShowsInputDTO, IRemoveShowInputDTO } from "../models/Show";
+import { IcreateReservationInputDTO, ICreateShowInputDTO, IGetShowsInputDTO, IRemoveShowInputDTO } from "../models/Show";
 
 export class ShowController {
     constructor(

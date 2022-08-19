@@ -1,5 +1,6 @@
 
 import { ShowDatabase } from "../database/ShowDatabase"
+import { NotFoundError } from "../errors/NotFoundError"
 import { RequestError } from "../errors/RequestError"
 import { UnauthorizedError } from "../errors/UnauthorizedError"
 import { IAddReserveOutputDTO, IcreateReservationInputDTO, ICreateShowInputDTO, ICreateShowOutputDTO, IGetShowsInputDTO, IGetShowsOutputDTO, IRemoveShowInputDTO, IRemoveShowOutputDTO, ITicketDB, Show } from "../models/Show"
@@ -35,6 +36,19 @@ export class ShowBusiness {
             throw new UnauthorizedError("Erro: Apenas usuários 'ADMIN' podem criar shows.");                         
         }
 
+        // if(starts_at < new Date("2022/12/05")) {
+        //     throw new RequestError("Erro: shows começam a partir do dia 05 de dezembro.")
+        // }
+
+        // if (starts_at > new Date("2022/12/11")) {
+        //     throw new RequestError("Erro: shows se encerram no dia 11 de dezembro.")
+        // }
+
+        // const dateShow = await this.showDatabase.checkDate(starts_at)
+        // if(dateShow){
+        //     throw new Error("Data indisponivel");      
+        // }
+    
         const id = this.idGenerator.generate()
         const show = new Show(
             id,
@@ -64,6 +78,12 @@ export class ShowBusiness {
             )
         })
 
+        for (let show of shows){
+            const showId = show.getId()
+            const tickets = await this.showDatabase.getTickets(showId)
+            show.setTickets(tickets)
+        }
+
         const response: IGetShowsOutputDTO = {
             shows
         }
@@ -83,7 +103,7 @@ export class ShowBusiness {
         const showDB = await this.showDatabase.findShowById(showId)
 
         if (!showDB) {
-            throw new RequestError("Show não encontrado")
+            throw new NotFoundError("Show não encontrado")
         }
 
         const isAlreadyReserved = await this.showDatabase.findReservation(

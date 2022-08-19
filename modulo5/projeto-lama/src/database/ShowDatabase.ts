@@ -15,6 +15,15 @@ export class ShowDatabase extends BaseDatabase {
         return showDB
     }
 
+    public checkDate = async (date:string):Promise<IShowDB | undefined>=> {
+        const result: IShowDB[] = await BaseDatabase
+            .connection(ShowDatabase.TABLE_SHOWS)
+            .select()
+            .where({ starts_at:date })
+
+        return result[0]
+    }
+
     public createShow = async (show: Show) => {
         const showDB = this.toShowDBModel(show)
 
@@ -33,9 +42,9 @@ export class ShowDatabase extends BaseDatabase {
 
     public getTickets = async (showId: string) => {
         const result: any = await BaseDatabase
-            .connection(ShowDatabase.TABLE_SHOWS)
+            .connection(ShowDatabase.TABLE_TICKETS)
             .select()
-            .count("id AS likes")
+            .count("id AS tickets")
             .where({ show_id: showId })
 
         return result[0].tickets as number
@@ -67,6 +76,7 @@ export class ShowDatabase extends BaseDatabase {
 
         return reserveDB[0]
     }
+
     public reserveTicket = async (reserveDB: ITicketDB) => {
         await BaseDatabase
             .connection(ShowDatabase.TABLE_TICKETS)
@@ -80,4 +90,6 @@ export class ShowDatabase extends BaseDatabase {
             .where({ show_id: showId })
             .andWhere({ user_id: userId })
     }
+
+    
 }

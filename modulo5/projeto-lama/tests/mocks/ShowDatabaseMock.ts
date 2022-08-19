@@ -43,6 +43,15 @@ export class ShowDatabaseMock extends BaseDatabase {
         return shows
     }
 
+    public getTickets = async (showId: string) => {
+        switch (showId) {
+            case "201":
+                return 5000
+            default:
+                return 0
+        }
+    }
+
     public getReserv = async (showId: string) => {
         switch (showId) {
             case "201":
@@ -94,4 +103,9 @@ export class ShowDatabaseMock extends BaseDatabase {
     public reserveTicket = async (reserveDB: ITicketDB) => {
         
     }
+
+    public removeReserv = async (showId: string, userId: string) => {
+        
+    }
+
 }

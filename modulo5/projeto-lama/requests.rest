@@ -6,9 +6,9 @@ POST http://localhost:3003/users/signup
 Content-Type: application/json
 
 {
-    "name": "willian",
-    "email": "willian@gmail.com",
-    "password": "will88"
+    "name": "lui",
+    "email": "lui@gmail.com",
+    "password": "luiz88"
 }
 
 ### 2) Login
@@ -22,20 +22,20 @@ Content-Type: application/json
 
 ### 3) Create show
 POST http://localhost:3003/shows
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMxZTNjY2EyLTRlNTYtNGFmOS05OGMxLWY1NGNhNTg5YmM0NiIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjA3NTM0MDMsImV4cCI6MTY2MDgzOTgwM30.q8KV24Q5gC6S75K3AEcJLpGK8SGOpezKhwIN3LONVaI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDkzNjkyOCwiZXhwIjoxNjYxMDIzMzI4fQ.TrSD8wL9QaAiue6ckxnZw0h3KOD9gDf-iU9rvqWGQBk
 Content-Type: application/json
 
 {
-    "band": "U2",
-    "start_at": "2022/08/17"
+    "band": "Calypso",
+    "start_at": "2022/12/6"
 }
 
 ### 4) Get shows
 GET http://localhost:3003/shows
 
 ### 5) Reserv ticket
-POST http://localhost:3003/shows/ticket/203
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDg1MDY1NiwiZXhwIjoxNjYwOTM3MDU2fQ.Br0ln94B-8QkNzxmMCpnvK_C1h0AStGNnDRdioVsW8U
+POST http://localhost:3003/shows/ticket/201
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRhYTliZDI5LTUxODItNGIxZi05NDRmLWFjOGM3NWFlNTI4NSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjA5MjgxNjcsImV4cCI6MTY2MTAxNDU2N30.E1p4AI53zasgfWGQgLzVuCr5RClME2JtSpIcKKg2k50
 
 ### 6) Remove reserved ticket
 DELETE http://localhost:3003/shows/ticket/203
