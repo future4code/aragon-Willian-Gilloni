@@ -1,0 +1,46 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+
+### Endpoint de signup
+POST http://localhost:3003/signup
+Content-Type: application/json
+
+{
+    "nickname": "willdev",
+    "email": "willian@email.com",
+    "password": "will123"
+}
+
+### Endpoint login
+POST http://localhost:3003/login
+Content-Type: application/json
+
+{
+    "email": "will@email.com",
+    "password": "will123"
+}
+
+### Endpoit getAllUsers or by id
+GET http://localhost:3003/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNjMWY0ZjgxLWUwOTMtNGRmYi05MzhmLWIzMzc3YWY5MGY2YiIsImlhdCI6MTY1OTM3ODgwOSwiZXhwIjoxNjU5NDY1MjA5fQ.lxyWJtbkaGENFGylPG2SZAGQtf0dzVtgy_xtsI-rn6A
+
+### Endpoint editUser
+PUT http://localhost:3003/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNjMWY0ZjgxLWUwOTMtNGRmYi05MzhmLWIzMzc3YWY5MGY2YiIsImlhdCI6MTY1OTM3ODgwOSwiZXhwIjoxNjU5NDY1MjA5fQ.lxyWJtbkaGENFGylPG2SZAGQtf0dzVtgy_xtsI-rn6A
+Content-Type: application/json
+
+{
+    "nickname":"xuxa",
+    "email": "xuxa@email.com",
+    "password": "will123"
+}
+
+### Endpoint DeleteUser
+DELETE http://localhost:3003/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhZmMzMWYyLWJjNWYtNDRkYS04MGZhLWIxMGVlODM3Y2MxMCIsImlhdCI6MTY1OTM4NjI2NSwiZXhwIjoxNjU5NDcyNjY1fQ.yaauqQybnNz_en0DPHzZE0ZJ-iZHy-EDtwQmfGLceqU
+Content-Type: application/json
+
+{
+    "id": "5afc31f2-bc5f-44da-80fa-b10ee837cc10"
+}

@@ -1,0 +1,51 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+### Exercício 0-get all classrooms
+GET http://localhost:3003/classrooms
+
+### Exercicio 1-Create Classroom
+POST http://localhost:3003/classrooms
+Content-Type: application/json
+
+{
+    "name": "sasha",
+    "module": "0"
+}
+
+### Exercicio 2-get classrooms > 0
+GET http://localhost:3003/classrooms/active
+
+### Exercicio3-edit module classroom
+PUT http://localhost:3003/classrooms/102/module
+Content-Type: application/json
+
+{
+    "module": "0"
+}
+
+###Exercicio4-create new student
+POST http://localhost:3003/classrooms/student
+Content-Type: application/json
+
+{
+    "name":"Lu",
+    "email":"luiz@gmail.com",
+    "birthdate":"10/10/1800",
+    "classroom_id":""
+}
+
+
+### Exercicio5-get student
+GET http://localhost:3003/students
+
+### Exercicio6 - edit student by classroom_id
+PUT http://localhost:3003/students/201/classroom_id
+Content-Type: application/json
+
+{
+    "classroom_id": "102"
+}
+
+### Exercicio7 - get students by classroom_Id
+GET http://localhost:3003/students/101
