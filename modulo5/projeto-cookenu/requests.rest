@@ -1,0 +1,57 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+### Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "nickname": "will",
+    "email": "will@email.com",
+    "password": "abc123"
+}
+
+### Login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "astrodev@gmail.com",
+    "password": "bananinha"
+}
+
+### Get all recipes
+GET http://localhost:3003/recipes
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1OTYzMDg0NiwiZXhwIjoxNjU5NzE3MjQ2fQ.ZObzl-sxO8qisBgTRHIepywxDUmXKH-KSDF-EfqvySQ
+
+### Create Recipe
+POST http://localhost:3003/recipes
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1OTYzMDg0NiwiZXhwIjoxNjU5NzE3MjQ2fQ.ZObzl-sxO8qisBgTRHIepywxDUmXKH-KSDF-EfqvySQ
+Content-Type: application/json
+
+{
+    "title": "Caldo de alho poró",
+    "description": "delicioso caldo de alho poró"
+}
+
+### Edit recipe
+PUT http://localhost:3003/recipes/101
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1OTYxNjgwMSwiZXhwIjoxNjU5NzAzMjAxfQ.NiwnDsSASQlic-m1gVDzL_du0vR1Vc1_hqcocp6yZkQ
+Content-Type: application/json
+
+{
+    "title": "Salada de Jennifer Aniston",
+    "description": "deliciosa salada que jennifer aniston comeu durante 10 anos todos os dias"
+}
+
+### Delete Recipe
+DELETE http://localhost:3003/recipes/102
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1OTYxNjgwMSwiZXhwIjoxNjU5NzAzMjAxfQ.NiwnDsSASQlic-m1gVDzL_du0vR1Vc1_hqcocp6yZkQ
+
+### Delete User
+DELETE http://localhost:3003/users/ae852d5e-b382-4f90-8b41-f3bef67c8495
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1OTYzMDg0NiwiZXhwIjoxNjU5NzE3MjQ2fQ.ZObzl-sxO8qisBgTRHIepywxDUmXKH-KSDF-EfqvySQ
+
+### Get all users to find id
+GET http://localhost:3003/users/?q=ci
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1OTYzMDg0NiwiZXhwIjoxNjU5NzE3MjQ2fQ.ZObzl-sxO8qisBgTRHIepywxDUmXKH-KSDF-EfqvySQ
