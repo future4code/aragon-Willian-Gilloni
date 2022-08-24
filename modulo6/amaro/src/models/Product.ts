@@ -68,6 +68,40 @@ export interface IGetProductOutputDTO {
     products: Product[]
 }
 
+export interface IGetProductSearchInputDTO {
+    token: string,
+    name: string,
+    id:string,
+    order: string,
+    sort: string,
+    limit: string,
+    page: string
+}
+
+export interface IGetSearchDBDTO {
+    name: string,
+    id:string,
+    order: string,
+    sort: string,
+    limit: number,
+    offset: number
+}
+
+export interface IGetProductsProduct {
+    id:string,
+    name: string
+}
+
+export interface IEditProductInputDTO {
+    token: string,
+    id: string,
+    name: string
+}
+export interface IDeleteProductInputDTO {
+    token:string,
+    idToDelete:string
+}
+
 
 
 // export interface IEditProductInputDTO {

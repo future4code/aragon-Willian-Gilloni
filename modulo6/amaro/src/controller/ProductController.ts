@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ProductBusiness } from "../business/ProductBusiness";
 import { BaseError } from "../errors/BaseError";
-import { ICreateProductInputDTO, IGetProductInputDTO } from "../models/Product";
+import { ICreateProductInputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductSearchInputDTO } from "../models/Product";
 
 export class ProductController {
     constructor(
@@ -42,6 +42,59 @@ export class ProductController {
             }
 
             res.status(500).send({ message: "Erro inesperado ao buscar shows" })
+        }
+    }
+    
+    public getProductSearch = async (req: Request, res: Response) => {
+        try {
+            const input: IGetProductSearchInputDTO = {
+                token: req.headers.authorization,
+                name: req.query.name as string,
+                id:req.query.id as string,
+                order: req.query.order as string,
+                sort: req.query.sort as string,
+                limit:req.query.limit as string,
+                page:req.query.page as string
+
+            }
+            console.log(input)
+            const response = await this.productBusiness.getSearch(input)
+
+            res.status(201).send(response)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
+        }
+    }
+
+    public editProduct = async (req: Request, res: Response) => {
+        try {
+            const input: IEditProductInputDTO= {
+                token: req.headers.authorization,
+                id: req.params.id,
+                name: req.body.name
+            }
+
+
+            const response = await this.productBusiness.editProduct(input)
+
+            res.status(200).send(response)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
+        }
+    }
+
+    public deleteProduct = async (req: Request, res: Response) => {
+        try {
+            const input: IDeleteProductInputDTO = {
+                token: req.headers.authorization,
+                idToDelete: req.params.id
+            }
+
+            const response = await this.productBusiness.deleteProduct(input)
+
+            res.status(200).send(response)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
         }
     }
 }

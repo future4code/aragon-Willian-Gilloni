@@ -1,7 +1,7 @@
 import { BaseDatabase } from "../BaseDatabase"
 import { ProductDatabase } from "../ProductDatabase"
 import { UserDatabase } from "../UserDatabase"
-import { products, users } from "./data"
+import { products, tags, users, productsTags } from "./data"
 
 class Migrations extends BaseDatabase {
     execute = async () => {
@@ -48,8 +48,7 @@ class Migrations extends BaseDatabase {
 
         CREATE TABLE IF NOT EXISTS ${ProductDatabase.TABLE_TAGS}(
             id VARCHAR(255) PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            product_id VARCHAR(255) NOT NULL
+            name VARCHAR(255) NOT NULL
         );
 
         CREATE TABLE IF NOT EXISTS ${ProductDatabase.TABLE_PRODUCT_TAGS}(
@@ -71,6 +70,13 @@ class Migrations extends BaseDatabase {
             .connection(ProductDatabase.TABLE_PRODUCTS)
             .insert(products)
 
+        await BaseDatabase
+        .connection(ProductDatabase.TABLE_TAGS)
+        .insert(tags) 
+        
+        await BaseDatabase
+        .connection(ProductDatabase.TABLE_PRODUCT_TAGS)
+        .insert(productsTags)
     }
 }
 

@@ -2,7 +2,7 @@
 import { ProductDatabase } from "../database/ProductDatabase"
 import { RequestError } from "../errors/RequestError"
 import { UnauthorizedError } from "../errors/UnauthorizedError"
-import { ICreateProductInputDTO, ICreateProductOutputDTO, IGetProductInputDTO, IGetProductOutputDTO, Product } from "../models/Product"
+import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetProductSearchInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
 import { USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"
@@ -58,8 +58,7 @@ export class ProductBusiness {
         const productsDB = await this.productDatabase.getProducts()
         
         const products = productsDB.map(productDB => {
-            const tags = this.productDatabase.getTags(productDB.id)
-            console.log(tags)
+          
             return new Product(
                 productDB.id,
                 productDB.name
@@ -78,4 +77,140 @@ export class ProductBusiness {
 
         return response
     }
+
+    public getSearch = async (input: IGetProductSearchInputDTO) => {
+        const name = input.name 
+        const id = input.id 
+        const order = input.order || "name"
+        const sort = input.sort || "ASC"
+        const limit = Number(input.limit) || 10
+        const page = Number(input.page) || 1
+        const offset = limit * (page - 1)
+
+        const getProductInputDB: IGetSearchDBDTO = {
+            name,
+            id,
+            order,
+            sort,
+            limit,
+            offset
+        }
+
+        const productsDB = await this.productDatabase.getBySearch(getProductInputDB)
+
+        const products = productsDB.map(productDB => {
+            const product = new Product(
+                productDB.id,
+                productDB.name
+            )
+            const productResponse:IGetProductsProduct = {
+                id: product.getId(),
+                name: product.getName()
+                
+            }
+
+            return productResponse
+
+        })
+
+        const response: any = {
+            products
+        }
+
+        return response
+    }
+
+    public editProduct = async (input: IEditProductInputDTO) => {
+        const {
+            token,
+            id,
+            name
+        } = input
+
+        if (!token) {
+            throw new Error("Token faltando")
+        }
+
+        if (!name ) {
+            throw new Error("Parâmetros faltando")
+        }
+
+        const authenticator = new Authenticator()
+        const payload = authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido")
+        }
+
+
+        if (name && typeof name !== "string") {
+            throw new Error("Parâmetro 'name' inválido")
+        }
+
+        if (name && name.length < 3) {
+            throw new Error("Parâmetro 'name' inválido")
+        }
+
+        if (payload.role === USER_ROLES.NORMAL) {
+            if (payload.id !== id) {
+                throw new Error("Usuários normais só podem editar a própria conta")
+            }
+        }
+
+        const productDatabase = new ProductDatabase()
+        const productDB = await productDatabase.findProductById(id)
+
+        if (!productDB) {
+            throw new Error("Conta a ser editada não existe")
+        }
+
+        const product = new Product(
+            productDB.id,
+            productDB.name
+        )
+
+        name && product.setName(name)
+        await productDatabase.editProduct(product)
+
+        const response = {
+            message: "Edição realizada com sucesso"
+        }
+
+        return response
+    }
+
+    public deleteProduct = async (input: IDeleteProductInputDTO) => {
+        const token = input.token
+        const idToDelete = input.idToDelete
+
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new Error("Token inválido ou faltando")
+        }
+
+        if (payload.role !== USER_ROLES.ADMIN) {
+            throw new Error("Apenas admins podem deletar produtos")
+        }  
+
+        if (payload.id === idToDelete) {
+            throw new Error("Não é possível deletar a própria conta")
+        }
+
+        const productDB = await this.productDatabase.findProductById(idToDelete)
+
+        if (!productDB) {
+            throw new Error("Product a ser deletado não encontrado")
+        }
+
+        await this.productDatabase.deleteProducts(idToDelete)
+
+        const response = {
+            message: "Produto deletado com sucesso"
+        }
+
+        return response
+    }
+
+    
 }
