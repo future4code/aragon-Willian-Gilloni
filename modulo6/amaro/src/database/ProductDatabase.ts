@@ -1,4 +1,4 @@
-import { IGetProductSearchInputDTO, IGetSearchDBDTO, IProductDB, Product } from "../models/Product"
+import { IGetproductsDBDTO, IGetProductSearchInputDTO, IGetSearchDBDTO, IProductDB, Product } from "../models/Product"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class ProductDatabase extends BaseDatabase {
@@ -24,12 +24,21 @@ export class ProductDatabase extends BaseDatabase {
             .insert(ProductDB)
     }
 
-    public getProducts = async (): Promise<IProductDB[] | undefined> => {
-        const result:IProductDB[] = await BaseDatabase
-        .connection(ProductDatabase.TABLE_PRODUCTS)
-        .select()
+    public getProducts = async (input:IGetproductsDBDTO): Promise<IProductDB[] | undefined> => {
 
-        return result
+        const order = input.order
+        const sort = input.sort
+        const limit = input.limit
+        const offset = input.offset
+
+        const productsDB: IProductDB[] = await BaseDatabase
+            .connection(ProductDatabase.TABLE_PRODUCTS)
+            .select()
+            .orderBy(order, sort)
+            .limit(limit)
+            .offset(offset)
+
+        return productsDB
     }
 
     public getTags = async (id:string): Promise<IProductDB[] | undefined> => {
@@ -44,23 +53,15 @@ export class ProductDatabase extends BaseDatabase {
         return result[0]
     }
 
-    public getBySearch = async (input: IGetSearchDBDTO) => {
-        const name = input.name
-        const id = input.id
-        const order = input.order
-        const sort = input.sort
-        const limit = input.limit
-        const offset = input.offset
-        console.log(name)
+    public getBySearch = async (search:string) => {
+   
+        const busca = search
         const productsDB: IProductDB[] = await BaseDatabase
             .connection(ProductDatabase.TABLE_PRODUCTS)
             .select()
-            .where("id", "LIKE", `${id}`)
-            .orWhere("name", "LIKE", `${name}`)
-            .orderBy(order, sort)
-            .limit(limit)
-            .offset(offset)
-
+            .where("id", "LIKE", `${busca}`)
+            .orWhere("name", "LIKE", `${busca}`)
+ 
         return productsDB
     }
     public findProductById = async (id: string): Promise<IProductDB | undefined> => {

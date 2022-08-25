@@ -31,7 +31,11 @@ export class ProductController {
     public getProducts = async (req: Request, res: Response) => {
         try {
             const input: IGetProductInputDTO = {
-                token: req.headers.authorization
+                token: req.headers.authorization,
+                order: req.query.order as string,
+                sort: req.query.sort as string,
+                limit:req.query.limit as string,
+                page:req.query.page as string
             }
 
             const response = await this.productBusiness.getProducts(input)
@@ -45,22 +49,14 @@ export class ProductController {
         }
     }
     
-    public getProductSearch = async (req: Request, res: Response) => {
+    public getProductSearchByNameOrId = async (req: Request, res: Response) => {
         try {
-            const input: IGetProductSearchInputDTO = {
-                token: req.headers.authorization,
-                name: req.query.name as string,
-                id:req.query.id as string,
-                order: req.query.order as string,
-                sort: req.query.sort as string,
-                limit:req.query.limit as string,
-                page:req.query.page as string
+  
+            const busca = req.query.q as string
 
-            }
-            console.log(input)
-            const response = await this.productBusiness.getSearch(input)
+            const response = await this.productBusiness.getSearch(busca)
 
-            res.status(201).send(response)
+            res.status(200).send(response)
         } catch (error) {
             res.status(400).send({ message: error.message })
         }

@@ -2,7 +2,7 @@
 import { ProductDatabase } from "../database/ProductDatabase"
 import { RequestError } from "../errors/RequestError"
 import { UnauthorizedError } from "../errors/UnauthorizedError"
-import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetProductSearchInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
+import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetproductsDBDTO, IGetProductSearchInputDTO, IgetProductsInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
 import { USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"
@@ -53,9 +53,21 @@ export class ProductBusiness {
         return response
     }
 
-    public getProducts = async (input: IGetProductInputDTO) => {
-        
-        const productsDB = await this.productDatabase.getProducts()
+    public getProducts = async (input: IgetProductsInputDTO) => {
+
+        const order = input.order || "name"
+        const sort = input.sort || "ASC"
+        const limit = Number(input.limit) || 10
+        const page = Number(input.page) || 1
+        const offset = limit * (page - 1)
+
+        const getProductInputDB: IGetproductsDBDTO= {
+            order,
+            sort,
+            limit,
+            offset
+        }
+        const productsDB = await this.productDatabase.getProducts(getProductInputDB)
         
         const products = productsDB.map(productDB => {
           
@@ -78,47 +90,19 @@ export class ProductBusiness {
         return response
     }
 
-    public getSearch = async (input: IGetProductSearchInputDTO) => {
-        const name = input.name 
-        const id = input.id 
-        const order = input.order || "name"
-        const sort = input.sort || "ASC"
-        const limit = Number(input.limit) || 10
-        const page = Number(input.page) || 1
-        const offset = limit * (page - 1)
+    public getSearch = async (busca:string) => {
+  
+        const search = busca.toUpperCase()
 
-        const getProductInputDB: IGetSearchDBDTO = {
-            name,
-            id,
-            order,
-            sort,
-            limit,
-            offset
-        }
+        const productsDB = await this.productDatabase.getBySearch(search)
 
-        const productsDB = await this.productDatabase.getBySearch(getProductInputDB)
-
-        const products = productsDB.map(productDB => {
-            const product = new Product(
-                productDB.id,
-                productDB.name
-            )
-            const productResponse:IGetProductsProduct = {
-                id: product.getId(),
-                name: product.getName()
-                
+            const response:any = {
+                productsDB
             }
 
-            return productResponse
-
-        })
-
-        const response: any = {
-            products
+            return response
         }
-
-        return response
-    }
+   
 
     public editProduct = async (input: IEditProductInputDTO) => {
         const {

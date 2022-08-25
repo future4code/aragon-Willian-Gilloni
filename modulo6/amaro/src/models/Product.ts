@@ -60,12 +60,30 @@ export interface ICreateProductOutputDTO {
 }
 
 export interface IGetProductInputDTO {
-    token: string
+    token: string,
+    order: string,
+    sort: string,
+    limit: string,
+    page: string
 }
 
 
 export interface IGetProductOutputDTO {
     products: Product[]
+}
+
+export interface IGetproductsDBDTO {
+    order: string,
+    sort: string,
+    limit: number,
+    offset: number
+}
+export interface IgetProductsInputDTO {
+    token: string,
+    order: string,
+    sort: string,
+    limit: string,
+    page: string
 }
 
 export interface IGetProductSearchInputDTO {

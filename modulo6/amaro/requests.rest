@@ -33,11 +33,13 @@ Content-Type: application/json
 ### 4) Get products
 GET http://localhost:3003/products
 
-### 5) Get search products
-GET http://localhost:3003/products/search?name=MOLETOM
+### 5) Get search products by id or name
+GET http://localhost:3003/products/search?q=8360
+
+
 
 ### 6) Edit product
-PUT http://localhost:3003/products/7e16589e-df51-40c4-ab88-365d1f4a53b6
+PUT http://localhost:3003/products/8360
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTM2MzMzMiwiZXhwIjoxNjYxNDQ5NzMyfQ.ifETZL5hRXZn4VOQ_LwapKUJ-O6L_DfwkI6ToLcB77Q
 Content-Type: application/json
 
