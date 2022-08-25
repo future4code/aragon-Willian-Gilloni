@@ -124,23 +124,3 @@ export interface IDeleteProductInputDTO {
     token:string,
     idToDelete:string
 }
-
-
-
-// export interface IEditProductInputDTO {
-//     token: string,
-//     productId: string
-// }
-
-// export interface  IEditProductOutputDTO {
-//     message: string
-// }
-
-// export interface IDeleteProductInputDTO {
-//     token: string,
-//     productId: string
-// }
-
-// export interface  IDeleteProductOutputDTO {
-//     message: string
-// }

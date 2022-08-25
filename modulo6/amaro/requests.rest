@@ -22,19 +22,19 @@ Content-Type: application/json
 
 ### 3) Create product
 POST http://localhost:3003/products
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTI3Mzk5NiwiZXhwIjoxNjYxMzYwMzk2fQ.JYzYNtaOFBIvj4BS6lERXaUTwjeLGw6hgDzHmUIG6ss
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTQ2MzM0OCwiZXhwIjoxNjYxNTQ5NzQ4fQ.F63IiZAaYrvI3lTLbpiQ9Raeuy88aWiZh_tP6p6G0PQ
 Content-Type: application/json
 
 {
-    "name": "carambola",
-    "tag": "[neutro,balada]"
+    "name": "havaiana de pau",
+    "tag": ["neutro,balada"]
 }
 
 ### 4) Get products
 GET http://localhost:3003/products
 
 ### 5) Get search products by id or name
-GET http://localhost:3003/products/search?q=8360
+GET http://localhost:3003/products/search?q=moletom
 
 ### 6) Get search products by tag
 GET http://localhost:3003/products/search/tag?q=balada
@@ -50,6 +50,7 @@ Content-Type: application/json
     "name": "vestido",
     "tag":"neutro"
 }
+
 ### 7) Delete product
 DELETE http://localhost:3003/products/716d2bc5-f409-4e64-b910-cdf05a4660ef
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTM2MzMzMiwiZXhwIjoxNjYxNDQ5NzMyfQ.ifETZL5hRXZn4VOQ_LwapKUJ-O6L_DfwkI6ToLcB77Q

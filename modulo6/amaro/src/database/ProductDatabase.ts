@@ -64,7 +64,7 @@ export class ProductDatabase extends BaseDatabase {
         return productsDB
     }
 
-    public getProductsByTag = async (search:string):Promise<IProductDB[] | undefined> => {
+    public getProductsByTag = async (search:string) => {
    
             const productsDB = await BaseDatabase.connection.raw(`
             SELECT Amaro_Products.id, Amaro_Products.name

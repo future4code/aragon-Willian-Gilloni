@@ -90,9 +90,7 @@ export class ProductBusiness {
         return response
     }
 
-    public getSearchByNameAndId = async (busca:string) => {
-  
-        const search = busca.toUpperCase()
+    public getSearchByNameAndId = async (search:string) => {
 
         const productsDB = await this.productDatabase.getBySearch(search)
 
@@ -104,8 +102,7 @@ export class ProductBusiness {
         }
    
 
-        public getProductsByTag = async (input:IGetProductsByTagInputDTO) => {
-            const search = input.search as string
+        public getProductsByTag = async (search:string) => {
 
             const tag = await this.productDatabase.getTags(search)
 

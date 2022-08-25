@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ProductBusiness } from "../business/ProductBusiness";
 import { BaseError } from "../errors/BaseError";
-import { ICreateProductInputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductSearchInputDTO } from "../models/Product";
+import { ICreateProductInputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, } from "../models/Product";
 
 export class ProductController {
     constructor(
@@ -52,9 +52,22 @@ export class ProductController {
     public getProductSearchByNameOrId = async (req: Request, res: Response) => {
         try {
   
-            const busca = req.query.q as string
+            const search = req.query.q as string
 
-            const response = await this.productBusiness.getSearchByNameAndId(busca)
+            const response = await this.productBusiness.getSearchByNameAndId(search)
+
+            res.status(200).send(response)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
+        }
+    }
+
+    public getProductByTag= async (req: Request, res: Response) => {
+        try {
+  
+            const search = req.query.q as string
+
+            const response = await this.productBusiness.getProductsByTag(search)
 
             res.status(200).send(response)
         } catch (error) {
@@ -94,16 +107,5 @@ export class ProductController {
         }
     }
 
-    public getProductByTag= async (req: Request, res: Response) => {
-        try {
-  
-            const search = req.query.q as string
-
-            const response = await this.productBusiness.getProductsByTag(search)
-
-            res.status(200).send(response)
-        } catch (error) {
-            res.status(400).send({ message: error.message })
-        }
-    }
+   
 }
