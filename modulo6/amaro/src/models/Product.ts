@@ -110,6 +110,11 @@ export interface IGetProductsProduct {
     name: string
 }
 
+export interface IGetProductsByTagInputDTO {
+    search:string
+}
+
+
 export interface IEditProductInputDTO {
     token: string,
     id: string,

@@ -36,6 +36,8 @@ GET http://localhost:3003/products
 ### 5) Get search products by id or name
 GET http://localhost:3003/products/search?q=8360
 
+### 6) Get search products by tag
+GET http://localhost:3003/products/search/tag?q=balada
 
 
 ### 6) Edit product

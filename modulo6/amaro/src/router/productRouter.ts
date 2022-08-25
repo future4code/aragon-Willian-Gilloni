@@ -17,5 +17,6 @@ const productController = new ProductController(
 productRouter.post("/", productController.createProduct)
 productRouter.get("/", productController.getProducts)
 productRouter.get("/search", productController.getProductSearchByNameOrId)
+productRouter.get("/search/tag", productController.getProductSearchByNameOrId)
 productRouter.put("/:id", productController.editProduct)
 productRouter.delete("/:id", productController.deleteProduct)

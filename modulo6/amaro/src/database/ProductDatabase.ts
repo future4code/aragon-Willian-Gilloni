@@ -1,4 +1,4 @@
-import { IGetproductsDBDTO, IGetProductSearchInputDTO, IGetSearchDBDTO, IProductDB, Product } from "../models/Product"
+import { IGetproductsDBDTO, IGetProductSearchInputDTO, IGetSearchDBDTO, IProductDB, ITagDB, Product } from "../models/Product"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class ProductDatabase extends BaseDatabase {
@@ -55,15 +55,31 @@ export class ProductDatabase extends BaseDatabase {
 
     public getBySearch = async (search:string) => {
    
-        const busca = search
         const productsDB: IProductDB[] = await BaseDatabase
             .connection(ProductDatabase.TABLE_PRODUCTS)
             .select()
-            .where("id", "LIKE", `${busca}`)
-            .orWhere("name", "LIKE", `${busca}`)
+            .where("id", "LIKE", `${search}`)
+            .orWhere("name", "LIKE", `${search}`)
  
         return productsDB
     }
+
+    public getProductsByTag = async (search:string):Promise<IProductDB[] | undefined> => {
+   
+            const productsDB = await BaseDatabase.connection.raw(`
+            SELECT Amaro_Products.id, Amaro_Products.name
+            FROM Amaro_Products_Tags
+            JOIN Amaro_Tags
+            ON Amaro_Products_Tags.tag_id = Amaro_Tags.id
+            JOIN Amaro_Products
+            ON Amaro_Tags_Products.product_id = Amaro_Products.id
+            WHERE Amaro_Products_Tags.tag_id = "${search}"  
+            ORWHERE Amaro_Products.name = "${search}"  
+            `)
+
+        return productsDB
+    }
+
     public findProductById = async (id: string): Promise<IProductDB | undefined> => {
         const result: IProductDB[] = await BaseDatabase
             .connection(ProductDatabase.TABLE_PRODUCTS)

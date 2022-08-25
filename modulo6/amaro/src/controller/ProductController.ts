@@ -54,7 +54,7 @@ export class ProductController {
   
             const busca = req.query.q as string
 
-            const response = await this.productBusiness.getSearch(busca)
+            const response = await this.productBusiness.getSearchByNameAndId(busca)
 
             res.status(200).send(response)
         } catch (error) {
@@ -87,6 +87,19 @@ export class ProductController {
             }
 
             const response = await this.productBusiness.deleteProduct(input)
+
+            res.status(200).send(response)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
+        }
+    }
+
+    public getProductByTag= async (req: Request, res: Response) => {
+        try {
+  
+            const search = req.query.q as string
+
+            const response = await this.productBusiness.getProductsByTag(search)
 
             res.status(200).send(response)
         } catch (error) {

@@ -2,7 +2,7 @@
 import { ProductDatabase } from "../database/ProductDatabase"
 import { RequestError } from "../errors/RequestError"
 import { UnauthorizedError } from "../errors/UnauthorizedError"
-import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetproductsDBDTO, IGetProductSearchInputDTO, IgetProductsInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
+import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetProductsByTagInputDTO, IGetproductsDBDTO, IGetProductSearchInputDTO, IgetProductsInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
 import { USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"
@@ -90,7 +90,7 @@ export class ProductBusiness {
         return response
     }
 
-    public getSearch = async (busca:string) => {
+    public getSearchByNameAndId = async (busca:string) => {
   
         const search = busca.toUpperCase()
 
@@ -103,6 +103,24 @@ export class ProductBusiness {
             return response
         }
    
+
+        public getProductsByTag = async (input:IGetProductsByTagInputDTO) => {
+            const search = input.search as string
+
+            const tag = await this.productDatabase.getTags(search)
+
+            const tagId = tag.map(item => item.id)
+
+            const products = await this.productDatabase.getProductsByTag(tagId[0])
+
+
+                const response:any = {
+                    products:products
+                }
+    
+                return response
+            }
+       
 
     public editProduct = async (input: IEditProductInputDTO) => {
         const {
