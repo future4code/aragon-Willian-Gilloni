@@ -1,0 +1,42 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+### 1) Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "lui",
+    "email": "lui@gmail.com",
+    "password": "luiz88"
+}
+
+### 2) Login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "astrodev@gmail.com",
+    "password": "bananinha"
+}
+
+### 3) Create show
+POST http://localhost:3003/shows
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDkzNjkyOCwiZXhwIjoxNjYxMDIzMzI4fQ.TrSD8wL9QaAiue6ckxnZw0h3KOD9gDf-iU9rvqWGQBk
+Content-Type: application/json
+
+{
+    "band": "Calypso",
+    "start_at": "2022/12/6"
+}
+
+### 4) Get shows
+GET http://localhost:3003/shows
+
+### 5) Reserv ticket
+POST http://localhost:3003/shows/ticket/201
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRhYTliZDI5LTUxODItNGIxZi05NDRmLWFjOGM3NWFlNTI4NSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjA5MjgxNjcsImV4cCI6MTY2MTAxNDU2N30.E1p4AI53zasgfWGQgLzVuCr5RClME2JtSpIcKKg2k50
+
+### 6) Remove reserved ticket
+DELETE http://localhost:3003/shows/ticket/203
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MDgzOTQzMSwiZXhwIjoxNjYwOTI1ODMxfQ.Mdtz4s8ZnBimKzSg2n1_huctf6mXB6hnF5SBgHKvu20
