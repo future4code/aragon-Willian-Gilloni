@@ -53,5 +53,12 @@ export class ProductDatabaseMock extends BaseDatabase {
         }
     }
 
+    public editProduct = async (req: Request, res: Response) => {
+        
+    }
+
+    public deleteProducts = async (id: string) => {
+
+    }
 
 }

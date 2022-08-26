@@ -39,18 +39,15 @@ GET http://localhost:3003/products/search?q=moletom
 ### 6) Get search products by tag
 GET http://localhost:3003/products/search/tag?q=balada
 
-
 ### 6) Edit product
-PUT http://localhost:3003/products/8360
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTM2MzMzMiwiZXhwIjoxNjYxNDQ5NzMyfQ.ifETZL5hRXZn4VOQ_LwapKUJ-O6L_DfwkI6ToLcB77Q
+PUT http://localhost:3003/products/8367
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTUxNzQ0NSwiZXhwIjoxNjYxNjAzODQ1fQ.RQm1rCMFqae5IvajjL7mOoIYgbDf1nQSrJJC2GfvtmU
 Content-Type: application/json
 
 {
-    "id":"333",
-    "name": "vestido",
-    "tag":"neutro"
+    "name": "vestido"
 }
 
 ### 7) Delete product
-DELETE http://localhost:3003/products/716d2bc5-f409-4e64-b910-cdf05a4660ef
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTM2MzMzMiwiZXhwIjoxNjYxNDQ5NzMyfQ.ifETZL5hRXZn4VOQ_LwapKUJ-O6L_DfwkI6ToLcB77Q
+DELETE http://localhost:3003/products/ce8f9c6a-857d-4e80-901e-afb6eca19b07
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTUzNTY0OCwiZXhwIjoxNjYxNjIyMDQ4fQ.XKErzAFt6rUni_72bcBiwYdBp_w5i8gZtcfwMczb6_A

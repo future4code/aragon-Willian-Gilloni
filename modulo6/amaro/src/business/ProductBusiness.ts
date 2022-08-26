@@ -2,7 +2,7 @@
 import { ProductDatabase } from "../database/ProductDatabase"
 import { RequestError } from "../errors/RequestError"
 import { UnauthorizedError } from "../errors/UnauthorizedError"
-import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetProductsByTagInputDTO, IGetproductsDBDTO, IGetProductSearchInputDTO, IgetProductsInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
+import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetproductsDBDTO, IGetProductSearchInputDTO, IgetProductsInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
 import { USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"
@@ -90,7 +90,9 @@ export class ProductBusiness {
         return response
     }
 
-    public getSearchByNameAndId = async (search:string) => {
+    public getSearchByNameAndId = async (busca:string) => {
+  
+        const search = busca.toUpperCase()
 
         const productsDB = await this.productDatabase.getBySearch(search)
 
@@ -101,24 +103,23 @@ export class ProductBusiness {
             return response
         }
    
+       
+        public getProductsTag= async (search:string) => {
+    
+            const tag = await this.productDatabase.getIdTag(search)
 
-        public getProductsByTag = async (search:string) => {
+            const tagId = tag?.map(item => item.id)
 
-            const tag = await this.productDatabase.getTags(search)
+            const products = await this.productDatabase.getSearchProductByTag(tagId[0])
 
-            const tagId = tag.map(item => item.id)
-
-            const products = await this.productDatabase.getProductsByTag(tagId[0])
-
-
+            
                 const response:any = {
-                    products:products
+                    products
                 }
     
                 return response
             }
-       
-
+           
     public editProduct = async (input: IEditProductInputDTO) => {
         const {
             token,
@@ -127,40 +128,25 @@ export class ProductBusiness {
         } = input
 
         if (!token) {
-            throw new Error("Token faltando")
+            throw new UnauthorizedError("Token faltando")
         }
 
         if (!name ) {
-            throw new Error("Parâmetros faltando")
+            throw new RequestError("Parâmetros faltando")
         }
-
-        const authenticator = new Authenticator()
-        const payload = authenticator.getTokenPayload(token)
-
-        if (!payload) {
-            throw new Error("Token inválido")
-        }
-
 
         if (name && typeof name !== "string") {
-            throw new Error("Parâmetro 'name' inválido")
+            throw new RequestError("Parâmetro 'name' inválido")
         }
 
-        if (name && name.length < 3) {
-            throw new Error("Parâmetro 'name' inválido")
+        if (name.length < 3) {
+            throw new RequestError("Parâmetro 'name' inválido")
         }
 
-        if (payload.role === USER_ROLES.NORMAL) {
-            if (payload.id !== id) {
-                throw new Error("Usuários normais só podem editar a própria conta")
-            }
-        }
-
-        const productDatabase = new ProductDatabase()
-        const productDB = await productDatabase.findProductById(id)
+        const productDB = await this.productDatabase.findProductById(id)
 
         if (!productDB) {
-            throw new Error("Conta a ser editada não existe")
+            throw new RequestError("Conta a ser editada não existe")
         }
 
         const product = new Product(
@@ -169,7 +155,7 @@ export class ProductBusiness {
         )
 
         name && product.setName(name)
-        await productDatabase.editProduct(product)
+        await this.productDatabase.editProduct(product)
 
         const response = {
             message: "Edição realizada com sucesso"
@@ -185,21 +171,21 @@ export class ProductBusiness {
         const payload = this.authenticator.getTokenPayload(token)
 
         if (!payload) {
-            throw new Error("Token inválido ou faltando")
+            throw new UnauthorizedError("Token inválido ou faltando")
         }
 
         if (payload.role !== USER_ROLES.ADMIN) {
-            throw new Error("Apenas admins podem deletar produtos")
+            throw new UnauthorizedError("Apenas admins podem deletar produtos")
         }  
 
         if (payload.id === idToDelete) {
-            throw new Error("Não é possível deletar a própria conta")
+            throw new UnauthorizedError("Não é possível deletar a própria conta")
         }
 
         const productDB = await this.productDatabase.findProductById(idToDelete)
 
         if (!productDB) {
-            throw new Error("Product a ser deletado não encontrado")
+            throw new RequestError("Product a ser deletado não encontrado")
         }
 
         await this.productDatabase.deleteProducts(idToDelete)
@@ -210,6 +196,5 @@ export class ProductBusiness {
 
         return response
     }
-
-    
+  
 }

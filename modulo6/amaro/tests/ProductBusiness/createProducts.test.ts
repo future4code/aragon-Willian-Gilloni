@@ -67,7 +67,7 @@ describe("Testando productBusiness", () => {
         }
     })
 
-    test("deve retornar um erro o tamanho do name deve ser maior que 1 caracter", async () => {
+    test("deve retornar um erro caso tamanho do name for menor que 1 caracter", async () => {
         expect.assertions(2)
 
         try {

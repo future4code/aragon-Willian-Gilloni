@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ProductBusiness } from "../business/ProductBusiness";
 import { BaseError } from "../errors/BaseError";
-import { ICreateProductInputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, } from "../models/Product";
+import { ICreateProductInputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductSearchInputDTO } from "../models/Product";
 
 export class ProductController {
     constructor(
@@ -12,9 +12,9 @@ export class ProductController {
         try {
 
             const input: ICreateProductInputDTO = {
-                token:req.headers.authorization,
+                token: req.headers.authorization,
                 name: req.body.name,
-                tag:req.body.tag
+                tag: req.body.tag
             }
 
             const response = await this.productBusiness.createProduct(input)
@@ -34,8 +34,8 @@ export class ProductController {
                 token: req.headers.authorization,
                 order: req.query.order as string,
                 sort: req.query.sort as string,
-                limit:req.query.limit as string,
-                page:req.query.page as string
+                limit: req.query.limit as string,
+                page: req.query.page as string
             }
 
             const response = await this.productBusiness.getProducts(input)
@@ -45,29 +45,16 @@ export class ProductController {
                 return res.status(error.statusCode).send({ message: error.message })
             }
 
-            res.status(500).send({ message: "Erro inesperado ao buscar shows" })
+            res.status(500).send({ message: "Erro inesperado ao buscar produtos" })
         }
     }
-    
+
     public getProductSearchByNameOrId = async (req: Request, res: Response) => {
         try {
-  
-            const search = req.query.q as string
 
-            const response = await this.productBusiness.getSearchByNameAndId(search)
+            const busca = req.query.q as string
 
-            res.status(200).send(response)
-        } catch (error) {
-            res.status(400).send({ message: error.message })
-        }
-    }
-
-    public getProductByTag= async (req: Request, res: Response) => {
-        try {
-  
-            const search = req.query.q as string
-
-            const response = await this.productBusiness.getProductsByTag(search)
+            const response = await this.productBusiness.getSearchByNameAndId(busca)
 
             res.status(200).send(response)
         } catch (error) {
@@ -77,7 +64,7 @@ export class ProductController {
 
     public editProduct = async (req: Request, res: Response) => {
         try {
-            const input: IEditProductInputDTO= {
+            const input: IEditProductInputDTO = {
                 token: req.headers.authorization,
                 id: req.params.id,
                 name: req.body.name
@@ -107,5 +94,16 @@ export class ProductController {
         }
     }
 
-   
+    public getTagBySearch = async (req: Request, res: Response) => {
+        try {
+
+            const search = req.query.q as string
+
+            const response = await this.productBusiness.getProductsTag(search)
+
+            res.status(200).send(response)
+        } catch (error) {
+            res.status(400).send({ message: error.message })
+        }
+    }
 }
