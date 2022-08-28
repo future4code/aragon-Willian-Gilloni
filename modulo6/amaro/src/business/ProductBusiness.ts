@@ -104,6 +104,7 @@ export class ProductBusiness {
 
     public getProductsTag = async (search: string) => {
 
+        
         const tag = await this.productDatabase.getIdTag(search)
 
         const tagId = tag?.map(item => item.id)

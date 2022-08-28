@@ -26,7 +26,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJB
 Content-Type: application/json
 
 {
-    "name": "havaiana de pau",
+    "name": "havaiana",
     "tag": ["neutro,balada"]
 }
 
