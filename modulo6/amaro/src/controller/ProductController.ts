@@ -52,9 +52,9 @@ export class ProductController {
     public getProductSearchByNameOrId = async (req: Request, res: Response) => {
         try {
 
-            const busca = req.query.q as string
+            const search = req.query.q as string
 
-            const response = await this.productBusiness.getSearchByNameAndId(busca)
+            const response = await this.productBusiness.getSearchByNameAndId(search)
 
             res.status(200).send(response)
         } catch (error) {

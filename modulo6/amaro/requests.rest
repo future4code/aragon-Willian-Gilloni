@@ -34,7 +34,7 @@ Content-Type: application/json
 GET http://localhost:3003/products
 
 ### 5) Get search products by id or name
-GET http://localhost:3003/products/search?q=moletom
+GET http://localhost:3003/products/search?q=havaiana
 
 ### 6) Get search products by tag
 GET http://localhost:3003/products/search/tag?q=balada
@@ -50,4 +50,4 @@ Content-Type: application/json
 
 ### 7) Delete product
 DELETE http://localhost:3003/products/ce8f9c6a-857d-4e80-901e-afb6eca19b07
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTUzNTY0OCwiZXhwIjoxNjYxNjIyMDQ4fQ.XKErzAFt6rUni_72bcBiwYdBp_w5i8gZtcfwMczb6_A
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MTU0MTgyNSwiZXhwIjoxNjYxNjI4MjI1fQ.iLRWZmnoLf45YP5BBEzLQrrfc22u2k2Wx03kEyHVCgw

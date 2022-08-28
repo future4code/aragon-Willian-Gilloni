@@ -53,13 +53,13 @@ export class ProductDatabase extends BaseDatabase {
         return result[0]
     }
 
-    public getBySearch = async (search: string) => {
+    public getBySearch = async (search: string): Promise<IProductDB[] | undefined> => {
 
         const productsDB: IProductDB[] = await BaseDatabase
             .connection(ProductDatabase.TABLE_PRODUCTS)
             .select()
-            .where("id", "LIKE", `${search}`)
-            .orWhere("name", "LIKE", `${search}`)
+            .whereLike("id", `%${search}%`)
+            .orWhereLike("name", `%${search}%`)
 
         return productsDB
     }

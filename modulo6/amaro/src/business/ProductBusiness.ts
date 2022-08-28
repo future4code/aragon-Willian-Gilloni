@@ -61,16 +61,16 @@ export class ProductBusiness {
         const page = Number(input.page) || 1
         const offset = limit * (page - 1)
 
-        const getProductInputDB: IGetproductsDBDTO= {
+        const getProductInputDB: IGetproductsDBDTO = {
             order,
             sort,
             limit,
             offset
         }
         const productsDB = await this.productDatabase.getProducts(getProductInputDB)
-        
+
         const products = productsDB.map(productDB => {
-          
+
             return new Product(
                 productDB.id,
                 productDB.name
@@ -82,44 +82,42 @@ export class ProductBusiness {
 
             product.setTag(tags)
         }
-        
-        const response:IGetProductOutputDTO = {
+
+        const response: IGetProductOutputDTO = {
             products
         }
 
         return response
     }
 
-    public getSearchByNameAndId = async (busca:string) => {
-  
-        const search = busca.toUpperCase()
+    public getSearchByNameAndId = async (search: string) => {
 
         const productsDB = await this.productDatabase.getBySearch(search)
 
-            const response:any = {
-                productsDB
-            }
-
-            return response
+        const response: any = {
+            productsDB
         }
-   
-       
-        public getProductsTag= async (search:string) => {
-    
-            const tag = await this.productDatabase.getIdTag(search)
 
-            const tagId = tag?.map(item => item.id)
+        return response
+    }
 
-            const products = await this.productDatabase.getSearchProductByTag(tagId[0])
 
-            
-                const response:any = {
-                    products
-                }
-    
-                return response
-            }
-           
+    public getProductsTag = async (search: string) => {
+
+        const tag = await this.productDatabase.getIdTag(search)
+
+        const tagId = tag?.map(item => item.id)
+
+        const products = await this.productDatabase.getSearchProductByTag(tagId[0])
+
+
+        const response: any = {
+            products
+        }
+
+        return response
+    }
+
     public editProduct = async (input: IEditProductInputDTO) => {
         const {
             token,
@@ -131,7 +129,7 @@ export class ProductBusiness {
             throw new UnauthorizedError("Token faltando")
         }
 
-        if (!name ) {
+        if (!name) {
             throw new RequestError("Parâmetros faltando")
         }
 
@@ -176,7 +174,7 @@ export class ProductBusiness {
 
         if (payload.role !== USER_ROLES.ADMIN) {
             throw new UnauthorizedError("Apenas admins podem deletar produtos")
-        }  
+        }
 
         if (payload.id === idToDelete) {
             throw new UnauthorizedError("Não é possível deletar a própria conta")
@@ -196,5 +194,5 @@ export class ProductBusiness {
 
         return response
     }
-  
+
 }
