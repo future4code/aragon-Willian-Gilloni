@@ -2,7 +2,7 @@
 import { ProductDatabase } from "../database/ProductDatabase"
 import { RequestError } from "../errors/RequestError"
 import { UnauthorizedError } from "../errors/UnauthorizedError"
-import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductOutputDTO, IGetproductsDBDTO, IGetProductSearchInputDTO, IgetProductsInputDTO, IGetProductsProduct, IGetSearchDBDTO, Product } from "../models/Product"
+import { ICreateProductInputDTO, ICreateProductOutputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductOutputDTO, IGetproductsDBDTO, IgetProductsInputDTO, Product } from "../models/Product"
 import { USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"

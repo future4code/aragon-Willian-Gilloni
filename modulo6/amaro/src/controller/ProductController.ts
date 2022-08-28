@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ProductBusiness } from "../business/ProductBusiness";
 import { BaseError } from "../errors/BaseError";
-import { ICreateProductInputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO, IGetProductSearchInputDTO } from "../models/Product";
+import { ICreateProductInputDTO, IDeleteProductInputDTO, IEditProductInputDTO, IGetProductInputDTO } from "../models/Product";
 
 export class ProductController {
     constructor(

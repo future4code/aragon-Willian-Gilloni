@@ -1,4 +1,4 @@
-import { IGetproductsDBDTO, IGetProductSearchInputDTO, IGetSearchDBDTO, IProductDB, ITagDB, Product } from "../models/Product"
+import { IGetproductsDBDTO, IProductDB, ITagDB, Product } from "../models/Product"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class ProductDatabase extends BaseDatabase {
