@@ -86,7 +86,7 @@ export class ProductDatabase extends BaseDatabase {
 
     public getSearchProductByTag = async (search: string): Promise<ITagDB | undefined> => {
 
-        const [result] = await BaseDatabase.connection.raw(`
+        const result = await BaseDatabase.connection.raw(`
             SELECT Amaro_Products.id,Amaro_Products.name
             FROM Amaro_Products_Tags
             JOIN Amaro_Tags
@@ -95,7 +95,7 @@ export class ProductDatabase extends BaseDatabase {
             ON Amaro_Products_Tags.product_id = Amaro_Products.id
             WHERE Amaro_Products_Tags.id = "${search}"  `)
 
-        return result
+        return result[0]
     }
 
     public findProductById = async (id: string): Promise<IProductDB | undefined> => {
